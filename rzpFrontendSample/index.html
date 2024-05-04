@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .content-auto {
+          content-visibility: auto;
+        }
+      }
+    </style>
+    <style>
+      .spinner {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 3px solid #000;
+        border-top-color: transparent;
+        animation: spinner 1s linear infinite;
+        margin: 0 auto;
+        margin-top: 10px;
+      }
+
+      @keyframes spinner {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="fallback"
+      class="hidden"
+      style="
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      "
+    >
+      <h1>Redirecting to thank you page</h1>
+      <div class="spinner"></div>
+    </div>
+    <div id="container" class="max-w-md mx-auto container">
+      <h1 class="text-2xl font-semibold mb-6">Payment Details</h1>
+      <form id="details">
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium mb-2">
+            Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-lg block w-full p-2.5"
+            placeholder="Enter Name"
+            type="text"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium mb-2">
+            Email
+          </label>
+          <input
+            id="email"
+            name="email"
+            class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-lg block w-full p-2.5"
+            placeholder="Enter Email"
+            type="text"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="phone" class="block text-sm font-medium mb-2">
+            Phone
+          </label>
+          <div class="flex">
+            <span
+              class="inline-flex items-center px-3 text-sm text-gray-500 bg-gray-200 border border-r-0 border-[#d1d5db] rounded-l-md"
+            >
+              IND
+            </span>
+            <input
+              id="phone"
+              name="phone"
+              class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-none rounded-r-lg block w-full p-2.5"
+              placeholder="Enter Phone"
+              type="text"
+            />
+          </div>
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between mb-2">
+            <span class="text-sm font-medium">Original Price</span>
+            <span class="text-sm">₹51.00</span>
+          </div>
+          <hr />
+          <div class="flex justify-between mt-2">
+            <span class="text-sm font-semibold">Total</span>
+            <span class="text-sm font-semibold">₹51.00</span>
+          </div>
+        </div>
+        <button
+          type="submit"
+          id="payment"
+          class="w-full bg-black text-white rounded-lg px-4 py-2.5 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50"
+        >
+          Pay Now
+        </button>
+      </form>
+    </div>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
