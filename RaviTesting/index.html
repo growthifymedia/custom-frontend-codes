@@ -14,11 +14,35 @@
         },
       };
     </script>
+    <style>
+      .loader {
+        width: 50px;
+        aspect-ratio: 1;
+        --g: #0000 calc(100% - 5px), #000 calc(100% - 3px) 93%, #0000;
+        background: radial-gradient(farthest-side at bottom, var(--g)) top /
+            100% 50%,
+          radial-gradient(farthest-side at top, var(--g)) bottom 18% right 0 /80%
+            40%,
+          radial-gradient(farthest-side at bottom, var(--g)) left 50% top 30%/60%
+            30%,
+          radial-gradient(farthest-side at top, var(--g)) right 34% bottom 37%/40%
+            20%,
+          radial-gradient(farthest-side at bottom, var(--g)) left 52% top 43%/24%
+            12%;
+        background-repeat: no-repeat;
+        animation: l20 1s infinite linear;
+      }
+      @keyframes l20 {
+        100% {
+          transform: rotate(1turn);
+        }
+      }
+    </style>
   </head>
   <body>
-    <div class="max-w-md mx-auto">
-      <h1 class="text-2xl font-semibold mb-6">Payment Details</h1>
+    <div class="max-w-md mx-auto container">
       <form method="post" id="details">
+        <h1 class="text-2xl font-semibold mb-6">Payment Details</h1>
         <div class="mb-4">
           <label for="name" class="block text-sm font-medium mb-2">
             Name
@@ -74,12 +98,12 @@
         <div class="mb-4">
           <div class="flex justify-between mb-2">
             <span class="text-sm font-medium">Original Price</span>
-            <span class="text-sm">₹199.00</span>
+            <span class="text-sm">₹9.00</span>
           </div>
           <hr />
           <div class="flex justify-between mt-2">
             <span class="text-sm font-semibold">Total</span>
-            <span class="text-sm font-semibold">₹199.00</span>
+            <span class="text-sm font-semibold">₹9.00</span>
           </div>
         </div>
         <button
@@ -90,6 +114,13 @@
           Pay ₹9.00
         </button>
       </form>
+      <div
+        class="hidden items-center justify-center"
+        style="height: 500px; width: 500px"
+        id="loader-container"
+      >
+        <div class="loader"></div>
+      </div>
     </div>
     <script>
       const clientName = "RAVI";
@@ -114,6 +145,17 @@
         input.style.border = value;
       };
 
+      const isValidName = (name) => {
+        // Check if the name is not empty
+        if (!name.trim()) {
+          return false;
+        }
+
+        // Check if the name contains only letters (no numbers or special characters)
+        const nameRegex = /^[a-zA-Z\s]+$/;
+        return nameRegex.test(name.trim());
+      };
+
       const isValidEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
@@ -121,7 +163,14 @@
 
       const isValidPhone = (phone) => {
         const phoneRegex = /^[0-9]{10}$/;
-        return phoneRegex.test(phone);
+        const sequentialPattern = /(.)\1{9}/; // Check for 10 repeated digits
+        const sequentialMatch = phone.match(sequentialPattern);
+        return (
+          phoneRegex.test(phone) &&
+          phone.startsWith("5") &&
+          phone.length === 10 &&
+          !sequentialMatch
+        );
       };
 
       paymentButton.addEventListener("click", async (e) => {
@@ -135,7 +184,7 @@
 
         let isValid = true;
 
-        if (!formData.name) {
+        if (!isValidName(formData.name)) {
           const nameError = getInput("nameError");
           nameError.style.display = "flex";
           const input = getInput("name");
@@ -216,6 +265,8 @@
             console.log(jsonData);
             paymentButton.style.opacity = 1;
             paymentButton.innerText = "Pay ₹9.00";
+            form.style.display = "none";
+            document.getElementById("loader-container").style.display = "flex";
             window.location.href = jsonData.data;
           } catch (error) {
             alert("Some error occured! Please retry");
