@@ -150,7 +150,7 @@ paymentButton.addEventListener("click", async (e) => {
       console.log(jsonData);
       paymentButton.disabled = false;
       paymentButton.style.opacity = 1;
-      paymentButton.innerText = "Pay ₹12.00";
+      paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
       window.location.href = jsonData.data;
     } catch (error) {
       alert("Some error occured! Please retry");
