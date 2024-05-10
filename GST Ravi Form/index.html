@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Sapna Form</title>
+    <title>Ravi GST FORM</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -261,8 +261,8 @@
                 body: JSON.stringify(updatedData),
               }
             );
-            form.style.display = "none";
-            document.getElementById("loader-container").style.display = "flex";
+            // form.style.display = "none";
+            // document.getElementById("loader-container").style.display = "flex";
             const jsonData = await response.json();
             console.log(jsonData);
             paymentButton.disabled = false;
