@@ -1,6 +1,6 @@
 // Put this whole code in Custom Javascript Footer, before pasting this add a <script>paste your code in between this</script>
 const clientName = "RAVI";
-const amount = "12";
+const amount = "197";
 const purpose = "test";
 const redirectUrl = "https://google.com";
 const userDetailWebhook =
@@ -12,6 +12,18 @@ const checkPaymentWebhook =
 
 const form = document.getElementById("details");
 const paymentButton = document.getElementById("payment");
+
+document.getElementsByClassName("amount")[0].innerText = `₹${amount}.00`;
+
+const gst = Number(amount) * 0.18;
+document.getElementsByClassName("gst")[0].innerText = `₹${gst.toFixed(2)}`;
+
+const total = Number(amount) + gst;
+document.getElementsByClassName(
+  "total-amount"
+)[0].innerText = `₹${total.toFixed(2)}`;
+
+paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
 
 const getInput = (name) => {
   return document.getElementById(name);
