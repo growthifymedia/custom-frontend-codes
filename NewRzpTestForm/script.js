@@ -1,6 +1,7 @@
 // Put this whole code in Custom Javascript Footer, before pasting this add a <script>paste your code in between this</script>
+
 const clientName = "TAPAN_TEST";
-const amount = "197";
+const amount = "199";
 const purpose = "test";
 const redirectUrl = "https://google.com";
 const formSubmissionWebhook =
