@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="height: 3000px">
+    <div id="original">hi</div>
+    <div id="floating">hi</div>
+    <script>
+      const originalDiv = document.getElementById("original");
+      const floatingDiv = document.getElementById("floating");
+
+      floatingDiv.style =
+        "display: none; position: fixed; bottom: 50px; right: 50px";
+
+      const elementIsVisibleInViewport = (
+        el
+        //    partiallyVisible = false
+      ) => {
+        const { top, left, bottom, right } = el.getBoundingClientRect();
+        const { innerHeight, innerWidth } = window;
+        return (
+          // partiallyVisible
+          //   ? ((top > 0 && top < innerHeight) ||
+          //       (bottom > 0 && bottom < innerHeight)) &&
+          //       ((left > 0 && left < innerWidth) ||
+          //         (right > 0 && right < innerWidth))
+          //   :
+          top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth
+        );
+      };
+
+      const checkVisibility = () => {
+        if (elementIsVisibleInViewport(originalDiv)) {
+          floatingDiv.style.display = "none";
+        } else {
+          floatingDiv.style.display = "flex";
+        }
+      };
+
+      window.addEventListener("scroll", checkVisibility);
+
+      // Initial check in case the element is not visible on load
+      checkVisibility();
+    </script>
+  </body>
+</html>
