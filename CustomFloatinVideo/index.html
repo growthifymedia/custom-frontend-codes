@@ -4,39 +4,117 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      #floating {
+        display: none;
+        height: 200px;
+        width: 300px;
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+        z-index: 9999;
+      }
+    </style>
   </head>
-  <body style="height: 3000px">
-    <div id="original">hi</div>
-    <div id="floating">hi</div>
+  <body>
+    <div id="original">
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/2agNtnfWbmc?si=zSFklBKsSQcoii2E"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div style="font-size: 36px">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+      adipisci quisquam porro earum tempora sunt facere, repellat et est omnis,
+      cumque veritatis, a soluta fugit fuga provident illum ducimus ipsum. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Excepturi adipisci
+      quisquam porro earum tempora sunt facere, repellat et est omnis, cumque
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+      adipisci quisquam porro earum tempora sunt facere, repellat et est omnis,
+      cumque veritatis, a soluta fugit fuga provident illum ducimus ipsum. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Excepturi adipisci
+      quisquam porro earum tempora sunt facere, repellat et est omnis, cumque
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+      adipisci quisquam porro earum tempora sunt facere, repellat et est omnis,
+      cumque veritatis, a soluta fugit fuga provident illum ducimus ipsum. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Excepturi adipisci
+      quisquam porro earum tempora sunt facere, repellat et est omnis, cumque
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+      adipisci quisquam porro earum tempora sunt facere, repellat et est omnis,
+      cumque veritatis, a soluta fugit fuga provident illum ducimus ipsum. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Excepturi adipisci
+      quisquam porro earum tempora sunt facere, repellat et est omnis, cumque
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+      adipisci quisquam porro earum tempora sunt facere, repellat et est omnis,
+      cumque veritatis, a soluta fugit fuga provident illum ducimus ipsum. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Excepturi adipisci
+      quisquam porro earum tempora sunt facere, repellat et est omnis, cumque
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+      adipisci quisquam porro earum tempora sunt facere, repellat et est omnis,
+      cumque veritatis, a soluta fugit fuga provident illum ducimus ipsum. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Excepturi adipisci
+      quisquam porro earum tempora sunt facere, repellat et est omnis, cumque
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+      adipisci quisquam porro earum tempora sunt facere, repellat et est omnis,
+      cumque veritatis, a soluta fugit fuga provident illum ducimus ipsum. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Excepturi adipisci
+      quisquam porro earum tempora sunt facere, repellat et est omnis, cumque
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+      adipisci quisquam porro earum tempora sunt facere, repellat et est omnis,
+      cumque veritatis, a soluta fugit fuga provident illum ducimus ipsum. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Excepturi adipisci
+      quisquam porro earum tempora sunt facere, repellat et est omnis, cumque
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+      adipisci quisquam porro earum tempora sunt facere, repellat et est omnis,
+      cumque veritatis, a soluta fugit fuga provident illum ducimus ipsum. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Excepturi adipisci
+      quisquam porro earum tempora sunt facere, repellat et est omnis, cumque
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+      adipisci quisquam porro earum tempora sunt facere, repellat et est omnis,
+      cumque veritatis, a soluta fugit fuga provident illum ducimus ipsum. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Excepturi adipisci
+      quisquam porro earum tempora sunt facere, repellat et est omnis, cumque
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+      adipisci quisquam porro earum tempora sunt facere, repellat et est omnis,
+      cumque veritatis, a soluta fugit fuga provident illum ducimus ipsum. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Excepturi adipisci
+      quisquam porro earum tempora sunt facere, repellat et est omnis, cumque
+    </div>
+    <div id="floating">
+      <iframe
+        src="https://www.youtube.com/embed/2agNtnfWbmc?si=zSFklBKsSQcoii2E"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
     <script>
       const originalDiv = document.getElementById("original");
       const floatingDiv = document.getElementById("floating");
 
-      floatingDiv.style =
-        "display: none; position: fixed; bottom: 50px; right: 50px";
-
-      const elementIsVisibleInViewport = (
-        el
-        //    partiallyVisible = false
-      ) => {
-        const { top, left, bottom, right } = el.getBoundingClientRect();
-        const { innerHeight, innerWidth } = window;
+      const elementIsCompletelyOutOfView = (el) => {
+        const rect = el.getBoundingClientRect();
         return (
-          // partiallyVisible
-          //   ? ((top > 0 && top < innerHeight) ||
-          //       (bottom > 0 && bottom < innerHeight)) &&
-          //       ((left > 0 && left < innerWidth) ||
-          //         (right > 0 && right < innerWidth))
-          //   :
-          top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth
+          rect.bottom <= 0 ||
+          rect.right <= 0 ||
+          rect.top >= window.innerHeight ||
+          rect.left >= window.innerWidth
         );
       };
 
       const checkVisibility = () => {
-        if (elementIsVisibleInViewport(originalDiv)) {
-          floatingDiv.style.display = "none";
-        } else {
+        if (elementIsCompletelyOutOfView(originalDiv)) {
           floatingDiv.style.display = "flex";
+        } else {
+          floatingDiv.style.display = "none";
         }
       };
 

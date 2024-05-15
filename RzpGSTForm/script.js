@@ -1,6 +1,6 @@
 // Put this whole code in Custom Javascript Footer, before pasting this add a <script>paste your code in between this</script>
 
-const clientName = "JINENDRAJAIN";
+const clientName = "TAPAN_TEST";
 const amount = "199";
 const purpose = "REDUCE WEIGHT AND MEDICINES NATURALLY test";
 const redirectUrl = "https://link.soultemple.in/thankyou-fb-new";
@@ -8,7 +8,7 @@ const formSubmissionWebhook =
   "https://hooks.zapier.com/hooks/catch/9776411/3j0lov2/";
 const paymentDetailsWebhook =
   "https://hooks.zapier.com/hooks/catch/9776411/3j0l2dv/";
-const apiKey = "rzp_live_tfe9rvnlIvJXR2";
+const apiKey = "rzp_test_6yEg7KBlHdDa7q";
 const userImage = "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg";
 
 const form = document.getElementById("details");
