@@ -2,6 +2,7 @@
 
 const clientName = "TAPAN_TEST";
 let amount = "199";
+let bumpAmount = "199";
 const purpose = "test";
 const redirectUrl = "https://google.com";
 const formSubmissionWebhook =
@@ -29,7 +30,7 @@ rzpCompatibleAmount = rzpCompatibleAmount.toString();
 
 bump.addEventListener("click", () => {
   if (!addOn.checked) {
-    const newAmount = Number(amount) + 199;
+    const newAmount = Number(amount) + Number(bumpAmount);
     amountValue.innerText = `₹${newAmount}.00`;
     totalAmountValue.innerText = `₹${newAmount}.00`;
     paymentButton.innerText = `Pay ₹${newAmount}`;
