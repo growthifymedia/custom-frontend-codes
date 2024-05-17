@@ -1,29 +1,22 @@
-// Put this whole code in Custom Javascript Footer, before pasting this add a <script>paste your code in between this</script>
 const clientName = "RAVI";
-const amount = "197";
-const purpose = "test";
-const redirectUrl = "https://google.com";
+const amount = "199";
+const purpose = "2 Days live workshop";
+const redirectUrl = "https://webinar.ravirkumar.com/2days-ws-ty";
 const userDetailWebhook =
-  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
+  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc";
 const paymentDetailWebhook =
-  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
+  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzEi_pc";
 const checkPaymentWebhook =
-  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
+  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzQi_pc";
 
 const form = document.getElementById("details");
 const paymentButton = document.getElementById("payment");
 
 document.getElementsByClassName("amount")[0].innerText = `₹${amount}.00`;
 
-const gst = Number(amount) * 0.18;
-document.getElementsByClassName("gst")[0].innerText = `₹${gst.toFixed(2)}`;
+document.getElementsByClassName("total-amount")[0].innerText = `₹${amount}.00`;
 
-const total = Number(amount) + gst;
-document.getElementsByClassName(
-  "total-amount"
-)[0].innerText = `₹${total.toFixed(2)}`;
-
-paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
+paymentButton.innerText = `Pay ₹${amount}.00`;
 
 const getInput = (name) => {
   return document.getElementById(name);
@@ -146,9 +139,9 @@ paymentButton.addEventListener("click", async (e) => {
       );
       const jsonData = await response.json();
       console.log(jsonData);
-      paymentButton.disabled = false;
       paymentButton.style.opacity = 1;
-      paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
+      paymentButton.innerText = "Pay ₹232.46";
+      paymentButton.disabled = false;
       window.location.href = jsonData.data;
     } catch (error) {
       alert("Some error occured! Please retry");
