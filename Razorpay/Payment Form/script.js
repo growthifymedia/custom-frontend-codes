@@ -13,7 +13,7 @@ const userImage = "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg";
 
 const form = document.getElementById("details");
 const paymentButton = document.getElementById("payment");
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://instamojopaymentsetup-test.onrender.com";
 let data;
 
 document.getElementsByClassName("amount")[0].innerText = `₹${amount}.00`;
