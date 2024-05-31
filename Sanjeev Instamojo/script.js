@@ -1,13 +1,10 @@
-const clientName = "RAVI";
-const amount = "199";
-const purpose = "2 Days live workshop";
-const redirectUrl = "https://webinar.ravirkumar.com/2days-ws-ty";
-const userDetailWebhook =
-  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc";
-const paymentDetailWebhook =
-  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzEi_pc";
-const checkPaymentWebhook =
-  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzQi_pc";
+const clientName = "SANJEEV";
+const amount = "53";
+const purpose = "MPESS Framework";
+const redirectUrl = "https://live.healthyfyinstitute.com/mpess-ty";
+const userDetailWebhook = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMTA0MzA1MjZhNTUzZDUxM2Ei_pc";
+const paymentDetailWebhook = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMTA0MzA1MjZiNTUzNDUxMzIi_pc";
+const checkPaymentWebhook = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMTA0MzA1MjZiNTUzNDUxMzci_pc";
 
 const form = document.getElementById("details");
 const paymentButton = document.getElementById("payment");
