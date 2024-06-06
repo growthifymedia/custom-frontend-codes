@@ -112,6 +112,10 @@ paymentButton.addEventListener("click", async (e) => {
   }
 
   if (isValid) {
+    paymentButton.disabled = true;
+    paymentButton.textContent = "Submitting...";
+    paymentButton.style.cursor = "not-allowed";
+    paymentButton.style.backgroundColor = "#ccc";
     formData.phone = `${selectElement.value}${formData.phone}`;
     console.log("Form data:", formData);
     const urlParams = new URLSearchParams(window.location.search);
@@ -145,6 +149,10 @@ paymentButton.addEventListener("click", async (e) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
+    paymentButton.disabled = false;
+    paymentButton.textContent = "Submit";
+    paymentButton.style.cursor = "pointer";
+    paymentButton.style.backgroundColor = "black";
       // const data = await response.json();
       window.location.href = `https://workshop.catapan.in/typage?name=${form.name.value}&email=${form.email.value}&phone=${form.phone.value}`;
     } catch (error) {
