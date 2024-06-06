@@ -58,11 +58,10 @@ const isValidEmail = (email) => {
 };
 
 const isValidPhone = (phone) => {
-  const phoneRegex = /^[5-9][0-9]{9}$/;
-  const sequentialPattern = /(.)\1{9}/; // Check for 10 repeated digits
-  const sequentialMatch = phone.match(sequentialPattern);
-  return phoneRegex.test(phone) && !sequentialMatch;
+  const phoneRegex = /^\d{8,15}$/;
+  return phoneRegex.test(phone);
 };
+
 
 paymentButton.addEventListener("click", async (e) => {
   e.preventDefault();
