@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p style="font-size: 18px;">This is a dynamic headline for: <span id="dynamic">ABC</span></p>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const heading = urlParams.get('heading');
+        if(heading) document.getElementById("dynamic").innerHTML = heading;
+        //Multiple items can be passed in the URL like this and can be accessed in the same way.
+    </script>
+</body>
+</html>
