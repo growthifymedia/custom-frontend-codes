@@ -114,5 +114,42 @@ paymentButton.addEventListener("click", async (e) => {
   if (isValid) {
     formData.phone = `${selectElement.value}${formData.phone}`;
     console.log("Form data:", formData);
+    const urlParams = new URLSearchParams(window.location.search);
+    const detailData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      utm_source: urlParams.get("utm_source"),
+      utm_medium: urlParams.get("utm_medium"),
+      utm_campaign: urlParams.get("utm_campaign"),
+      utm_adgroup: urlParams.get("utm_adgroup"),
+      utm_content: urlParams.get("utm_content"),
+      utm_term: urlParams.get("utm_term"),
+      utm_id: urlParams.get("utm_id"),
+      adsetname: urlParams.get("adset name"),
+      adname: urlParams.get("ad name"),
+      landingPageUrl: window.location.href,
+    };
+    console.log(detailData)
+    try {
+      const response = await fetch(
+        "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZiMDYzNzA0M2Q1MjY5NTUzYzUxMzAi_pc",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(detailData),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      // const data = await response.json();
+      window.location.href = `https://workshop.catapan.in/typage?name=${form.name.value}&email=${form.email.value}&phone=${form.phone.value}`;
+    } catch (error) {
+      alert("Error occurred, please try again...");
+      console.error("Error!", error.message);
+    }
   }
 });
