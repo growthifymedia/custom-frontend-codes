@@ -152,8 +152,13 @@ paymentButton.addEventListener("click", async (e) => {
     paymentButton.textContent = "Submit";
     paymentButton.style.cursor = "pointer";
     paymentButton.style.backgroundColor = "black";
+    document.getElementById("thanks").style.display = "block"
       // const data = await response.json();
-      window.location.href = `https://workshop.catapan.in/typage?name=${form.name.value}&email=${form.email.value}&phone=${form.phone.value}`;
+      window.open(
+  `https://workshop.catapan.in/typage?name=${form.name.value}&email=${form.email.value}&phone=${form.phone.value}`, 
+  '_blank'
+);
+
     } catch (error) {
       alert("Error occurred, please try again...");
       console.error("Error!", error.message);
