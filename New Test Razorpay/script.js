@@ -216,7 +216,8 @@ paymentButton.addEventListener("click", async (e) => {
 
     const updatedData = {
       formData: data,
-      webhook: formSubmissionWebhook,
+      userWebhook: formSubmissionWebhook,
+      paymentWebhook: paymentDetailsWebhook,
     };
 
     try {
