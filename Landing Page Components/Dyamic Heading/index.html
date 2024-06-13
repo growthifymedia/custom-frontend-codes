@@ -8,9 +8,12 @@
 <body>
     <p style="font-size: 18px;">This is a dynamic headline for: <span id="dynamic">ABC</span></p>
     <script>
+        const h1 = "abc"
+        const h2 = "def"
+        const h3 = "ghi"
         const urlParams = new URLSearchParams(window.location.search);
         const heading = urlParams.get('heading');
-        if(heading) document.getElementById("dynamic").innerHTML = heading;
+        if(heading) document.getElementById("dynamic").innerHTML = heading === "h1" ? h1 : heading === "h2" ? h2 : h3;
         //Multiple items can be passed in the URL like this and can be accessed in the same way.
     </script>
 </body>
