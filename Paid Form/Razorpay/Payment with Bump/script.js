@@ -5,10 +5,8 @@ let amount = "199";
 let bumpAmount = "199";
 const purpose = "test";
 const redirectUrl = "https://google.com";
-const formSubmissionWebhook =
-  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
-const paymentDetailsWebhook =
-  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
+const formSubmissionWebhook = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
+const paymentDetailsWebhook = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
 const apiKey = "rzp_test_6yEg7KBlHdDa7q";
 const userImage = "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg";
 const baseUrl = "https://instamojopaymentsetup-test.onrender.com";
@@ -28,271 +26,127 @@ paymentButton.innerText = `Pay ₹${amount}`;
 let rzpCompatibleAmount = Number(amount) * 100;
 rzpCompatibleAmount = rzpCompatibleAmount.toString();
 
-bump.addEventListener("click", () => {
-  if (!addOn.checked) {
+const updateAmount = () => {
+  if (addOn.checked) {
     const newAmount = Number(amount) + Number(bumpAmount);
     amountValue.innerText = `₹${newAmount}.00`;
     totalAmountValue.innerText = `₹${newAmount}.00`;
     paymentButton.innerText = `Pay ₹${newAmount}`;
-
-    rzpCompatibleAmount = Number(newAmount) * 100;
-    rzpCompatibleAmount = rzpCompatibleAmount.toString();
   } else {
     amountValue.innerText = `₹${amount}.00`;
     totalAmountValue.innerText = `₹${amount}.00`;
     paymentButton.innerText = `Pay ₹${amount}`;
-
-    rzpCompatibleAmount = Number(amount) * 100;
-    rzpCompatibleAmount = rzpCompatibleAmount.toString();
   }
-  addOn.checked = !addOn.checked;
-});
+};
 
-addOn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  if (!addOn.checked) {
-    const newAmount = Number(amount) + 199;
-    amountValue.innerText = `₹${newAmount}.00`;
-    totalAmountValue.innerText = `₹${newAmount}.00`;
-    paymentButton.innerText = `Pay ₹${newAmount}`;
+const onSubmitHandler = (e) => {
+  e.preventDefault();
 
-    let rzpCompatibleAmount = Number(newAmount) * 100;
-    rzpCompatibleAmount = rzpCompatibleAmount.toString();
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const nameError = document.getElementById("nameError");
+  const emailError = document.getElementById("emailError");
+  const phoneError = document.getElementById("phoneError");
+
+  let isValid = true;
+
+  if (name === "") {
+    nameError.classList.remove("hidden");
+    isValid = false;
   } else {
-    amountValue.innerText = `₹${amount}.00`;
-    totalAmountValue.innerText = `₹${amount}.00`;
-    paymentButton.innerText = `Pay ₹${amount}`;
-
-    let rzpCompatibleAmount = Number(amount) * 100;
-    rzpCompatibleAmount = rzpCompatibleAmount.toString();
+    nameError.classList.add("hidden");
   }
-});
 
-let options = {
-  key: apiKey,
-  amount: rzpCompatibleAmount,
-  currency: "INR",
-  description: purpose,
-  image: userImage,
-  prefill: {
-    email: "test@gmail.com",
-    contact: "9812791045",
-  },
-  config: {
-    display: {
-      blocks: {
-        banks: {
-          name: "Most Used Methods",
-          instruments: [
-            {
-              method: "wallet",
-              wallets: ["phonepe"],
-            },
-            {
-              method: "upi",
-            },
-          ],
-        },
-      },
-      sequence: ["block.banks"],
-      preferences: {
-        show_default_blocks: true,
-      },
-    },
-  },
-  handler: async function (response) {
-    const paymentId = response.razorpay_payment_id;
-    const orderId = response.razorpay_order_id;
-    const signature = response.razorpay_signature;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    emailError.classList.remove("hidden");
+    isValid = false;
+  } else {
+    emailError.classList.add("hidden");
+  }
 
-    const verification = await fetch(
-      `${baseUrl}/api/payments/new/razorpay/verify/${clientName}`,
-      {
+  const phoneRegex = /^[0-9]{10}$/;
+  if (!phoneRegex.test(phone)) {
+    phoneError.classList.remove("hidden");
+    isValid = false;
+  } else {
+    phoneError.classList.add("hidden");
+  }
+
+  if (!isValid) {
+    return;
+  }
+
+  data = {
+    name,
+    email,
+    phone,
+    amount: addOn.checked ? (Number(amount) + Number(bumpAmount)) * 100 : Number(amount) * 100,
+    purpose,
+    clientName,
+    redirectUrl,
+    formSubmissionWebhook,
+    paymentDetailsWebhook,
+    apiKey,
+    userImage,
+    baseUrl,
+  };
+
+  const options = {
+    key: apiKey,
+    amount: data.amount,
+    currency: "INR",
+    name: data.name,
+    description: purpose,
+    image: userImage,
+    handler: function (response) {
+      fetch(paymentDetailsWebhook, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          razorpay_payment_id: paymentId,
-          razorpay_order_id: orderId,
-          razorpay_signature: signature,
-        }),
-      }
-    );
-
-    const verificationData = await verification.json();
-    console.log(verificationData);
-    console.log(data);
-    if (verificationData.success) {
-      await fetch(
-        `${baseUrl}/api/payments/new/razorpay/savePayment/${clientName}/${paymentId}/${orderId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            webhook: paymentDetailsWebhook,
-            formData: data,
-          }),
-        }
-      );
-      paymentButton.disabled = false;
-      paymentButton.style.opacity = 1;
-      paymentButton.innerText = `Pay ₹${amount}`;
-      window.location.href = redirectUrl;
-    }
-  },
-
-  modal: {
-    ondismiss: function () {
-      paymentButton.disabled = false;
-      paymentButton.style.opacity = 1;
-      paymentButton.innerText = `Pay ₹${amount}`;
+        body: JSON.stringify(response),
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          window.location.href = redirectUrl;
+        })
+        .catch((error) => console.error("Error:", error));
     },
-  },
-};
-
-const getInput = (name) => {
-  return document.getElementById(name);
-};
-
-const setBorder = (input, value) => {
-  input.style.border = value;
-};
-
-const isValidName = (name) => {
-  // Check if the name is not empty
-  if (!name.trim()) {
-    return false;
-  }
-
-  // Check if the name contains only letters (no numbers or special characters)
-  const nameRegex = /^[a-zA-Z\s]+$/;
-  return nameRegex.test(name.trim());
-};
-
-const isValidEmail = (email) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
-
-const isValidPhone = (phone) => {
-  const phoneRegex = /^[5-9][0-9]{9}$/;
-  const sequentialPattern = /(.)\1{9}/; // Check for 10 repeated digits
-  const sequentialMatch = phone.match(sequentialPattern);
-  return phoneRegex.test(phone) && !sequentialMatch;
-};
-
-paymentButton.addEventListener("click", async (e) => {
-  e.preventDefault();
-
-  const formData = {
-    name: form.name.value.trim(),
-    email: form.email.value.trim(),
-    phone: form.phone.value.trim(),
+    prefill: {
+      name: data.name,
+      email: data.email,
+      contact: data.phone,
+    },
+    notes: {
+      address: "note value",
+    },
+    theme: {
+      color: "#F37254",
+    },
   };
 
-  let isValid = true;
+  const rzp1 = new Razorpay(options);
+  rzp1.on("payment.failed", function (response) {
+    console.error(response.error);
+  });
 
-  if (!isValidName(formData.name)) {
-    const nameError = getInput("nameError");
-    nameError.style.display = "flex";
-    const input = getInput("name");
-    input.oninput = function () {
-      nameError.style.display = "none";
-      setBorder(input, "");
-    };
-    setBorder(input, "1px solid red");
-    isValid = false;
+  rzp1.open();
+};
+
+form.addEventListener("submit", onSubmitHandler);
+
+bump.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (e.target.id !== "addOn") {
+    addOn.checked = !addOn.checked;
+    updateAmount();
   }
+});
 
-  if (!isValidEmail(formData.email)) {
-    const emailError = getInput("emailError");
-    emailError.style.display = "flex";
-    const input = getInput("email");
-    input.oninput = function () {
-      emailError.style.display = "none";
-      setBorder(input, "");
-    };
-    setBorder(input, "1px solid red");
-    isValid = false;
-  }
-
-  if (!isValidPhone(formData.phone)) {
-    const phoneError = getInput("phoneError");
-    phoneError.style.display = "flex";
-    const input = getInput("phone");
-    input.oninput = function () {
-      phoneError.style.display = "none";
-      setBorder(input, "");
-    };
-    setBorder(input, "1px solid red");
-    isValid = false;
-  }
-
-  if (isValid) {
-    paymentButton.disabled = true;
-    paymentButton.style.opacity = 0.7;
-    paymentButton.innerText = "Submitting...";
-    const urlParams = new URLSearchParams(window.location.search);
-    data = {
-      name: formData.name,
-      amount: rzpCompatibleAmount,
-      email: formData.email,
-      phone: formData.phone,
-      purpose,
-      redirectUrl,
-      utm_source: urlParams.get("utm_source"),
-      utm_medium: urlParams.get("utm_medium"),
-      utm_campaign: urlParams.get("utm_campaign"),
-      utm_adgroup: urlParams.get("utm_adgroup"),
-      utm_content: urlParams.get("utm_content"),
-      utm_term: urlParams.get("utm_term"),
-      utm_id: urlParams.get("utm_id"),
-      adsetname: urlParams.get("adset name"),
-      adname: urlParams.get("ad name"),
-      landingPageUrl: window.location.href,
-    };
-
-    const updatedData = {
-      formData: data,
-      webhook: formSubmissionWebhook,
-    };
-
-    try {
-      const response = await fetch(
-        `${baseUrl}/api/payments/new/razorpay/createOrder/${clientName}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedData),
-        }
-      );
-
-      const result = await response.json();
-      if (result && result.order && result.order.id) {
-        options.prefill = {
-          email: form.email.value.trim(),
-          contact: form.phone.value.trim(),
-        };
-        options.order_id = result.order.id;
-        const rzp1 = new Razorpay(options);
-        rzp1.open();
-      } else {
-        alert("Error: Unable to retrieve order ID. Please try again later.");
-        paymentButton.disabled = false;
-        paymentButton.style.opacity = 1;
-        paymentButton.innerText = `Pay ₹${amount}`;
-      }
-    } catch (error) {
-      alert("Some error occured! Please retry");
-      paymentButton.disabled = false;
-      paymentButton.style.opacity = 1;
-      paymentButton.innerText = `Pay ₹${amount}`;
-      console.log(error);
-    }
-  }
+addOn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  addOn.checked = !addOn.checked;
+  updateAmount();
 });
