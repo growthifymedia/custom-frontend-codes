@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Razorpay Test Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+.loader {
+  width: 50px;
+  padding: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #25b09b;
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+</style>
+  </head>
+  <body>
+    <div class="max-w-md mx-auto">
+      <form method="post" id="details">
+        <h1 class="text-2xl font-semibold mb-6">Payment Details</h1>
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium mb-2">
+            Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-lg block w-full p-2.5"
+            placeholder="Enter Name"
+            type="text"
+          />
+          <p id="nameError" class="hidden text-red-500 text-xs m-1">
+            Please enter your name.
+          </p>
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium mb-2">
+            Email
+          </label>
+          <input
+            id="email"
+            name="email"
+            class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-lg block w-full p-2.5"
+            placeholder="Enter Email"
+            type="text"
+          />
+          <p id="emailError" class="hidden text-red-500 text-xs m-1">
+            Please enter a valid email address.
+          </p>
+        </div>
+        <div class="mb-4">
+          <label for="phone" class="block text-sm font-medium mb-2">
+            Phone
+          </label>
+            <input
+              id="phone"
+              name="phone"
+              class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-none rounded-r-lg block w-full p-2.5"
+              placeholder="Enter Phone"
+              type="text"
+            />
+          <p id="phoneError" class="hidden text-red-500 text-xs m-1">
+            Please enter valid 10 digit phone number.
+          </p>
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between mb-2">
+            <span class="text-sm font-medium">Original Price</span>
+            <span class="text-sm amount">₹9.00</span>
+          </div>
+          <hr />
+          <div class="flex justify-between mt-2">
+            <span class="text-sm font-semibold">Total</span>
+            <span class="text-sm font-semibold total-amount">₹12.00</span>
+          </div>
+        </div>
+        <button
+          type="submit"
+          id="payment"
+          class="w-full bg-black text-white rounded-lg px-4 py-2.5 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 cursor:pointer total-amount"
+        >
+          Pay ₹12.00
+        </button>
+      </form>
+    </div>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+const clientName = "TAPAN_TEST";
+const amount = "199";
+const purpose = "test";
+const redirectUrl = "https://google.com";
+const formSubmissionWebhook =
+  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
+const paymentDetailsWebhook =
+  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
+const apiKey = "rzp_test_6yEg7KBlHdDa7q";
+const userImage = "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg";
+
+const form = document.getElementById("details");
+const paymentButton = document.getElementById("payment");
+const baseUrl = "https://instamojopaymentsetup-test.onrender.com";
+let data;
+
+document.getElementsByClassName("amount")[0].innerText = `₹${amount}.00`;
+
+document.getElementsByClassName("total-amount")[0].innerText = `₹${amount}.00`;
+
+paymentButton.innerText = `Pay ₹${amount}`;
+
+let rzpCompatibleAmount = Number(amount) * 100;
+rzpCompatibleAmount = rzpCompatibleAmount.toString();
+
+let options = {
+  key: apiKey,
+  amount: rzpCompatibleAmount,
+  currency: "INR",
+  description: purpose,
+  image: userImage,
+  prefill: {
+    email: "test@gmail.com",
+    contact: "9812791045",
+  },
+  config: {
+    display: {
+      blocks: {
+        banks: {
+          name: "Most Used Methods",
+          instruments: [
+            {
+              method: "wallet",
+              wallets: ["phonepe"],
+            },
+            {
+              method: "upi",
+            },
+          ],
+        },
+      },
+      sequence: ["block.banks"],
+      preferences: {
+        show_default_blocks: true,
+      },
+    },
+  },
+  handler: async function (response) {
+    const paymentId = response.razorpay_payment_id;
+    const orderId = response.razorpay_order_id;
+    const signature = response.razorpay_signature;
+
+    const verification = await fetch(
+      `${baseUrl}/api/payments/new/razorpay/verify/${clientName}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          razorpay_payment_id: paymentId,
+          razorpay_order_id: orderId,
+          razorpay_signature: signature,
+        }),
+      }
+    );
+
+    const verificationData = await verification.json();
+    console.log(verificationData);
+    console.log(data);
+    if (verificationData.success) {
+      await fetch(
+        `${baseUrl}/api/payments/new/razorpay/savePayment/${clientName}/${paymentId}/${orderId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            webhook: paymentDetailsWebhook,
+            formData: data,
+          }),
+        }
+      );
+      paymentButton.disabled = false;
+      paymentButton.style.opacity = 1;
+      paymentButton.innerText = `Pay ₹${amount}`;
+      window.location.href = redirectUrl;
+    }
+  },
+
+  modal: {
+    ondismiss: function () {
+      paymentButton.disabled = false;
+      paymentButton.style.opacity = 1;
+      paymentButton.innerText = `Pay ₹${amount}`;
+    },
+  },
+};
+
+const getInput = (name) => {
+  return document.getElementById(name);
+};
+
+const setBorder = (input, value) => {
+  input.style.border = value;
+};
+
+const isValidName = (name) => {
+  // Check if the name is not empty
+  if (!name.trim()) {
+    return false;
+  }
+
+  // Check if the name contains only letters (no numbers or special characters)
+  const nameRegex = /^[a-zA-Z\s]+$/;
+  return nameRegex.test(name.trim());
+};
+
+const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+const isValidPhone = (phone) => {
+  const phoneRegex = /^[5-9][0-9]{9}$/;
+  const sequentialPattern = /(.)\1{9}/; // Check for 10 repeated digits
+  const sequentialMatch = phone.match(sequentialPattern);
+  return phoneRegex.test(phone) && !sequentialMatch;
+};
+
+paymentButton.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const formData = {
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    phone: form.phone.value.trim(),
+  };
+
+  let isValid = true;
+
+  if (!isValidName(formData.name)) {
+    const nameError = getInput("nameError");
+    nameError.style.display = "flex";
+    const input = getInput("name");
+    input.oninput = function () {
+      nameError.style.display = "none";
+      setBorder(input, "");
+    };
+    setBorder(input, "1px solid red");
+    isValid = false;
+  }
+
+  if (!isValidEmail(formData.email)) {
+    const emailError = getInput("emailError");
+    emailError.style.display = "flex";
+    const input = getInput("email");
+    input.oninput = function () {
+      emailError.style.display = "none";
+      setBorder(input, "");
+    };
+    setBorder(input, "1px solid red");
+    isValid = false;
+  }
+
+  if (!isValidPhone(formData.phone)) {
+    const phoneError = getInput("phoneError");
+    phoneError.style.display = "flex";
+    const input = getInput("phone");
+    input.oninput = function () {
+      phoneError.style.display = "none";
+      setBorder(input, "");
+    };
+    setBorder(input, "1px solid red");
+    isValid = false;
+  }
+
+  if (isValid) {
+    paymentButton.disabled = true;
+    paymentButton.style.opacity = 0.7;
+    paymentButton.innerText = "Submitting...";
+    const urlParams = new URLSearchParams(window.location.search);
+    data = {
+      name: formData.name,
+      amount: rzpCompatibleAmount,
+      email: formData.email,
+      phone: formData.phone,
+      purpose,
+      redirectUrl,
+      utm_source: urlParams.get("utm_source"),
+      utm_medium: urlParams.get("utm_medium"),
+      utm_campaign: urlParams.get("utm_campaign"),
+      utm_adgroup: urlParams.get("utm_adgroup"),
+      utm_content: urlParams.get("utm_content"),
+      utm_term: urlParams.get("utm_term"),
+      utm_id: urlParams.get("utm_id"),
+      adsetname: urlParams.get("adset name"),
+      adname: urlParams.get("ad name"),
+      landingPageUrl: window.location.href,
+    };
+
+    const updatedData = {
+      formData: data,
+      webhook: formSubmissionWebhook,
+    };
+
+    try {
+      const response = await fetch(
+        `${baseUrl}/api/payments/new/razorpay/createOrder/${clientName}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedData),
+        }
+      );
+
+      const result = await response.json();
+      if (result && result.order && result.order.id) {
+        options.prefill = {
+          email: form.email.value.trim(),
+          contact: form.phone.value.trim(),
+        };
+        options.order_id = result.order.id;
+        const rzp1 = new Razorpay(options);
+        rzp1.open();
+      } else {
+        alert("Error: Unable to retrieve order ID. Please try again later.");
+        paymentButton.disabled = false;
+        paymentButton.style.opacity = 1;
+        paymentButton.innerText = `Pay ₹${amount}`;
+      }
+    } catch (error) {
+      alert("Some error occured! Please retry");
+      paymentButton.disabled = false;
+      paymentButton.style.opacity = 1;
+      paymentButton.innerText = `Pay ₹${amount}`;
+      console.log(error);
+    }
+  }
+});
+
+    </script>
+  </body>
+</html>
