@@ -78,6 +78,8 @@ let options = {
         const paymentId = response.razorpay_payment_id;
         const orderId = response.razorpay_order_id;
         const signature = response.razorpay_signature;
+        form.style.display = "none";
+        document.getElementById("loader-container").style.display = "flex";
     
         const verification = await fetch(
           `${baseUrl}/api/payments/new/razorpay/verify/${clientName}`,
@@ -149,6 +151,10 @@ const onSubmitHandler = async (e) => {
   if (!isValid) {
     return;
   }
+
+  paymentButton.disabled = true;
+  paymentButton.style.opacity = 0.7;
+  paymentButton.innerText = "Submitting...";
   const urlParams = new URLSearchParams(window.location.search);
   
   data = {
