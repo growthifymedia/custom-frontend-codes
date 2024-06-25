@@ -22,6 +22,7 @@ const total = Number(amount) + gst;
 document.getElementsByClassName(
   "total-amount"
 )[0].innerText = `₹${total.toFixed(2)}`;
+const compatibleAmount = total.toString()
 
 paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
 
@@ -110,7 +111,7 @@ paymentButton.addEventListener("click", async (e) => {
     const urlParams = new URLSearchParams(window.location.search);
     const data = {
       name: formData.name,
-      amount,
+      amount: compatibleAmount,
       email: formData.email,
       phone: formData.phone,
       purpose,
