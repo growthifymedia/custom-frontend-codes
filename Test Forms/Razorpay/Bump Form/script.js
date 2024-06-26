@@ -100,7 +100,7 @@ let options = {
         console.log(verificationData);
           paymentButton.disabled = false;
           paymentButton.style.opacity = 1;
-          paymentButton.innerText = `Pay ₹${amount}`;
+          paymentButton.innerText = `Pay ₹${addOn.checked ? (parseInt(amount) + parseInt(bumpAmount)) : amount}`
         window.location.href = addOn.checked ? redirectUrlBump : redirectUrl
     },
   
@@ -108,7 +108,7 @@ let options = {
       ondismiss: function () {
         paymentButton.disabled = false;
         paymentButton.style.opacity = 1;
-        paymentButton.innerText = `Pay ₹${amount}`;
+        paymentButton.innerText = `Pay ₹${addOn.checked ? (parseInt(amount) + parseInt(bumpAmount)) : amount}`
       },
     },
   };
@@ -206,13 +206,13 @@ const onSubmitHandler = async (e) => {
       alert("Error: Unable to retrieve order ID. Please try again later.");
       paymentButton.disabled = false;
       paymentButton.style.opacity = 1;
-      paymentButton.innerText = `Pay ₹${amount}`;
+      paymentButton.innerText = `Pay ₹${addOn.checked ? (parseInt(amount) + parseInt(bumpAmount)) : amount}`;
     }
   } catch (error) {
     alert("Some error occured! Please retry");
     paymentButton.disabled = false;
     paymentButton.style.opacity = 1;
-    paymentButton.innerText = `Pay ₹${amount}`;
+    paymentButton.innerText = `Pay ₹${addOn.checked ? (Number(amount) + Number(bumpAmount)) : amount}`;
     console.log(error);
   }
 };
