@@ -1,7 +1,7 @@
 // Put this whole code in Custom Javascript Footer, before pasting this add a <script>paste your code in between this</script>
 
 const clientName = "TAPAN_TEST";
-const amount = "9";
+const amount = "499";
 const purpose = "test";
 const redirectUrl = "https://google.com";
 const formSubmissionWebhook =
@@ -28,8 +28,7 @@ document.getElementsByClassName(
 
 paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
 
-let rzpCompatibleAmount = Number(total) * 100;
-rzpCompatibleAmount = rzpCompatibleAmount.toString();
+let rzpCompatibleAmount = (total*100).toFixed(0);
 
 let options = {
   key: apiKey,
@@ -89,7 +88,7 @@ let options = {
     console.log(verificationData);
       paymentButton.disabled = false;
       paymentButton.style.opacity = 1;
-      paymentButton.innerText = `Pay ₹${total}`;
+      paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
       window.location.href = redirectUrl;
   },
 
@@ -97,7 +96,7 @@ let options = {
     ondismiss: function () {
       paymentButton.disabled = false;
       paymentButton.style.opacity = 1;
-      paymentButton.innerText = `Pay ₹${total}`;
+      paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
     },
   },
 };
@@ -235,13 +234,13 @@ paymentButton.addEventListener("click", async (e) => {
         alert("Error: Unable to retrieve order ID. Please try again later.");
         paymentButton.disabled = false;
         paymentButton.style.opacity = 1;
-        paymentButton.innerText = `Pay ₹${total}`;
+        paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
       }
     } catch (error) {
       alert("Some error occured! Please retry");
       paymentButton.disabled = false;
       paymentButton.style.opacity = 1;
-      paymentButton.innerText = `Pay ₹${total}`;
+      paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
       console.log(error);
     }
   }

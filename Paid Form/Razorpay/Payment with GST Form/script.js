@@ -28,8 +28,7 @@ document.getElementsByClassName(
 
 paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
 
-let rzpCompatibleAmount = Number(total) * 100;
-rzpCompatibleAmount = rzpCompatibleAmount.toString();
+let rzpCompatibleAmount = (total*100).toFixed(0);
 
 let options = {
   key: apiKey,

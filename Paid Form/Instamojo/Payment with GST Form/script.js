@@ -22,7 +22,8 @@ const total = Number(amount) + gst;
 document.getElementsByClassName(
   "total-amount"
 )[0].innerText = `₹${total.toFixed(2)}`;
-const compatibleAmount = total.toString()
+const compatibleAmount = total.toFixed(2).toString()
+console.log(compatibleAmount)
 
 paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
 
