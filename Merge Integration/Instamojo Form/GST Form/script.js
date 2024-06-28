@@ -1,22 +1,31 @@
+// Put this whole code in Custom Javascript Footer, before pasting this add a <script>paste your code in between this</script>
 const clientName = "RAVI";
-const amount = "199";
-const purpose = "2 Days live workshop";
-const redirectUrl = "https://webinar.ravirkumar.com/2days-ws-ty";
+const amount = "197";
+const purpose = "test";
+const redirectUrl = "https://google.com";
 const userDetailWebhook =
-  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc";
+  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
 const paymentDetailWebhook =
-  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzEi_pc";
+  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
 const checkPaymentWebhook =
-  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzQi_pc";
+  "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
+const baseUrl = "https://instamojopaymentapi.onrender.com";
 
 const form = document.getElementById("details");
 const paymentButton = document.getElementById("payment");
 
 document.getElementsByClassName("amount")[0].innerText = `₹${amount}.00`;
 
-document.getElementsByClassName("total-amount")[0].innerText = `₹${amount}.00`;
+const gst = Number(amount) * 0.18;
+document.getElementsByClassName("gst")[0].innerText = `₹${gst.toFixed(2)}`;
 
-paymentButton.innerText = `Pay ₹${amount}.00`;
+const total = Number(amount) + gst;
+document.getElementsByClassName(
+  "total-amount"
+)[0].innerText = `₹${total.toFixed(2)}`;
+const compatibleAmount = total.toString()
+
+paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
 
 const getInput = (name) => {
   return document.getElementById(name);
@@ -103,7 +112,7 @@ paymentButton.addEventListener("click", async (e) => {
     const urlParams = new URLSearchParams(window.location.search);
     const data = {
       name: formData.name,
-      amount,
+      amount: compatibleAmount,
       email: formData.email,
       phone: formData.phone,
       purpose,
@@ -117,7 +126,7 @@ paymentButton.addEventListener("click", async (e) => {
       utm_id: urlParams.get("utm_id"),
       adsetname: urlParams.get("adset name"),
       adname: urlParams.get("ad name"),
-      landingPageUrl: window.location.href,
+      landingPageUrl: window.location.href.split('?')[0],
     };
 
     const updatedData = {
@@ -128,7 +137,7 @@ paymentButton.addEventListener("click", async (e) => {
     };
     try {
       const response = await fetch(
-        `https://instamojopaymentapi.onrender.com/api/payments/new/instamojo/createPayment/${clientName}`,
+        `${baseUrl}/api/payments/new/instamojo/createPayment/${clientName}`,
         {
           method: "POST",
           headers: {
@@ -139,9 +148,9 @@ paymentButton.addEventListener("click", async (e) => {
       );
       const jsonData = await response.json();
       console.log(jsonData);
-      paymentButton.style.opacity = 1;
-      paymentButton.innerText = `Pay ₹${amount}`;
       paymentButton.disabled = false;
+      paymentButton.style.opacity = 1;
+      paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
       window.location.href = jsonData.data;
     } catch (error) {
       alert("Some error occured! Please retry");
