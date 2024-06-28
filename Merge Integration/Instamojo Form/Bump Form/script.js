@@ -13,7 +13,7 @@ const paymentDetailWebhook =
 const checkPaymentWebhook =
   "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzQi_pc";
 const userImage = "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg";
-const baseUrl = "https://instamojopaymentapi.onrender.com";
+const baseUrl = "https://growthifymedia-services.onrender.com";
 let data;
 
 const form = document.getElementById("details");

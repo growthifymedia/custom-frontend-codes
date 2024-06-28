@@ -12,7 +12,7 @@ const paymentDetailsWebhook =
   "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0MzM1MjZhNTUzNjUxM2Ii_pc";
 const apiKey = "rzp_test_6yEg7KBlHdDa7q";
 const userImage = "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg";
-const baseUrl = "https://instamojopaymentapi.onrender.com";
+const baseUrl = "https://growthifymedia-services.onrender.com";
 let data;
 
 const form = document.getElementById("details");

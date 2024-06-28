@@ -9,7 +9,7 @@ const paymentDetailWebhook =
   "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
 const checkPaymentWebhook =
   "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzNDA0M2M1MjY1NTUzZDUxMzci_pc";
-const baseUrl = "https://instamojopaymentapi.onrender.com";
+const baseUrl = "https://growthifymedia-services.onrender.com";
 
 const form = document.getElementById("details");
 const paymentButton = document.getElementById("payment");
