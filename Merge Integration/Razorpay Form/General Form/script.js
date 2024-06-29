@@ -81,10 +81,10 @@ let options = {
 
     const verificationData = await verification.json();
     console.log(verificationData);
-      paymentButton.disabled = false;
-      paymentButton.style.opacity = 1;
-      paymentButton.innerText = `Pay ₹${amount}`;
-      window.location.href = redirectUrl;
+    paymentButton.disabled = false;
+    paymentButton.style.opacity = 1;
+    paymentButton.innerText = `Pay ₹${amount}`;
+    window.location.href = redirectUrl;
   },
 
   modal: {
@@ -195,7 +195,7 @@ paymentButton.addEventListener("click", async (e) => {
       utm_id: urlParams.get("utm_id"),
       adsetname: urlParams.get("adset name"),
       adname: urlParams.get("ad name"),
-      landingPageUrl: window.location.href,
+      landingPageUrl: window.location.href.split('?')[0],
     };
 
     const updatedData = {

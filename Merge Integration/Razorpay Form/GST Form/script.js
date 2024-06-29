@@ -28,7 +28,7 @@ document.getElementsByClassName(
 
 paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
 
-let rzpCompatibleAmount = (total*100).toFixed(0);
+let rzpCompatibleAmount = (total * 100).toFixed(0);
 
 let options = {
   key: apiKey,
@@ -86,10 +86,10 @@ let options = {
 
     const verificationData = await verification.json();
     console.log(verificationData);
-      paymentButton.disabled = false;
-      paymentButton.style.opacity = 1;
-      paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
-      window.location.href = redirectUrl;
+    paymentButton.disabled = false;
+    paymentButton.style.opacity = 1;
+    paymentButton.innerText = `Pay ₹${total.toFixed(2)}`;
+    window.location.href = redirectUrl;
   },
 
   modal: {
@@ -200,7 +200,7 @@ paymentButton.addEventListener("click", async (e) => {
       utm_id: urlParams.get("utm_id"),
       adsetname: urlParams.get("adset name"),
       adname: urlParams.get("ad name"),
-      landingPageUrl: window.location.href,
+      landingPageUrl: window.location.href.split('?')[0]
     };
 
     const updatedData = {
