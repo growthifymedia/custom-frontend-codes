@@ -79,6 +79,7 @@ submitButton.addEventListener("click", async (e) => {
                 adName: urlParams.get("ad name"),
             },
             landingPageUrl: window.location.href,
+            webhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc"
         };
 
         try {
