@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ravi GST FORM</title>
+    <!-- Put this piece of code in Custom Javascript Header -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: "#da373d",
+                    },
+                },
+            },
+        };
+    </script>
+
+    <!-- Till here -->
+</head>
+
+<body>
+    <!-- Create a new popup form and paste this piece of code in HTML component, search for the 2nd comment to check till where you need to copy -->
+
+    <div class="max-w-md mx-auto">
+        <form method="post" id="details">
+            <h1 class="text-2xl font-semibold mb-6">Payment Details</h1>
+            <div class="mb-4">
+                <label for="name" class="block text-sm font-medium mb-2">
+                    Name
+                </label>
+                <input id="name" name="name"
+                    class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-lg block w-full p-2.5"
+                    placeholder="Enter Name" type="text" />
+                <p id="nameError" class="hidden text-red-500 text-xs m-1">
+                    Please enter your name.
+                </p>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium mb-2">
+                    Email
+                </label>
+                <input id="email" name="email"
+                    class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-lg block w-full p-2.5"
+                    placeholder="Enter Email" type="text" />
+                <p id="emailError" class="hidden text-red-500 text-xs m-1">
+                    Please enter a valid email address.
+                </p>
+            </div>
+            <div class="mb-4">
+                <label for="phone" class="block text-sm font-medium mb-2">
+                    Phone
+                </label>
+                <div class="flex">
+                    <span
+                        class="inline-flex items-center px-3 text-sm text-gray-500 bg-gray-200 border border-r-0 border-[#d1d5db] rounded-l-md">
+                        IND
+                    </span>
+                    <input id="phone" name="phone"
+                        class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-none rounded-r-lg block w-full p-2.5"
+                        placeholder="Enter Phone" type="text" />
+                </div>
+                <p id="phoneError" class="hidden text-red-500 text-xs m-1">
+                    Please enter valid 10 digit phone number.
+                </p>
+            </div>
+            <div class="mb-4">
+                <p class="block text-sm font-medium mb-2">Package Type:</p>
+                <div class="flex items-cemter mt-4 gap-4">
+                    <div class="flex items-center gap-2">
+                        <input id="classic" value="classic" name="packageType" type="radio" />
+                        <label for="classic" class="block text-sm font-medium">
+                            Classic Package
+                        </label>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="premium" value="premium" name="packageType" type="radio" />
+                        <label for="premium" class="block text-sm font-medium">
+                            Premium Package
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="packageFeatures" class="mb-4 p-4 border rounded-lg"></div>
+            <div class="mb-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">Original Price</span>
+                    <span class="text-sm amount">₹197.00</span>
+                </div>
+                <hr />
+                <div class="flex justify-between mt-2">
+                    <span class="text-sm font-semibold">Total</span>
+                    <span class="text-sm font-semibold total-amount">₹232.46</span>
+                </div>
+            </div>
+            <button type="submit" id="payment"
+                class="w-full bg-black text-white rounded-lg px-4 py-2.5 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 cursor:pointer">
+                Pay ₹232.46
+            </button>
+        </form>
+    </div>
+
+    <!-- Till here -->
+    <script src="./script.js"></script>
+</body>
+
+</html>
