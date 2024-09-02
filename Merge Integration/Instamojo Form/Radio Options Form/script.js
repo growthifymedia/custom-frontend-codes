@@ -1,4 +1,4 @@
-const clientName = "SALMAN";
+const clientName = "AMARESH";
 const baseUrl = "https://growthifymedia-services.onrender.com";
 
 const form = document.getElementById("details");
@@ -22,6 +22,21 @@ const packageConfig = {
     premium: {
         amount: "232.46",
         purpose: "2 Days live workshop (Premium)",
+        redirectUrl: "https://webinar.ravirkumar.com/2days-ws-ty-premium",
+        userDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc",
+        paymentDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzEi_pc",
+        checkPaymentWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzQi_pc",
+        features: [
+            "SAFAL BUSINESS MASTERY VIDEO COURSE WORTH Rs.5000/_",
+            "7 days live morning meditation worth Rs.5000/_",
+            "7 days Live 10x business growth master class worth Rs.5000/_",
+            "Action workbook Hard copy worth Rs.5000/_",
+            "1 to 1 call with assistant Business coach worth Rs.10,000/_"
+        ]
+    },
+    another: {
+        amount: "233.46",
+        purpose: "2 Days live workshop (Another)",
         redirectUrl: "https://webinar.ravirkumar.com/2days-ws-ty-premium",
         userDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc",
         paymentDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzEi_pc",

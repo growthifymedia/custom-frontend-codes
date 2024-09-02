@@ -1,6 +1,6 @@
 // Put this whole code in Custom Javascript Footer, before pasting this add a <script>paste your code in between this</script>
 
-const clientName = "TAPAN_TEST";
+const clientName = "STOCKTUTOR";
 let amount = "199";
 let bumpAmount = "199";
 const purpose = "test";
@@ -10,7 +10,7 @@ const formSubmissionWebhook =
   "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0MzI1MjY1NTUzNjUxM2Ei_pc";
 const paymentDetailsWebhook =
   "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0MzM1MjZhNTUzNjUxM2Ii_pc";
-const apiKey = "rzp_test_6yEg7KBlHdDa7q";
+const apiKey = "rzp_live_zT6qxWnoCMD9tU";
 const userImage = "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg";
 const baseUrl = "https://growthifymedia-services.onrender.com";
 let data;
