@@ -45,7 +45,7 @@ const updateUIForPackage = (config) => {
     document.getElementsByClassName("gst")[0].innerText = `+₹${gst.toFixed(2)}`;
     document.getElementsByClassName("amount")[0].innerText = `₹${originalAmount.toFixed(2)}`;
     document.getElementsByClassName("total-amount")[0].innerText = `₹${(discountedAmount + gst).toFixed(2)}`;
-    paymentButton.innerText = `Pay ₹${discountedAmount.toFixed(2)}`;
+    paymentButton.innerText = `Pay ₹${(parseFloat(currentConfig.amount) - appliedDiscount + (parseFloat(currentConfig.amount) * 0.18)).toFixed(2)}`;
 
     if (appliedDiscount > 0) {
         discountRow.classList.remove("hidden");
@@ -224,7 +224,7 @@ paymentButton.addEventListener("click", async (e) => {
             alert("An error occurred while processing your payment. Please try again.");
         } finally {
             paymentButton.style.opacity = 1;
-            paymentButton.innerText = `Pay ₹${(parseFloat(currentConfig.amount) - appliedDiscount).toFixed(2)}`;
+            paymentButton.innerText = `Pay ₹${(parseFloat(currentConfig.amount) - appliedDiscount + (parseFloat(currentConfig.amount) * 0.18)).toFixed(2)}`;
             paymentButton.disabled = false;
         }
     }
