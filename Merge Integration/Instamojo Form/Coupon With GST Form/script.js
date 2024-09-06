@@ -144,6 +144,17 @@ const applyCoupon = () => {
     updateUIForPackage(currentConfig);
 };
 
+const url = window.location.href
+
+if (url.includes("coupon_code")) {
+    let extractedCode = url.split("coupon_code=")[1]
+    if (extractedCode.includes("&")) {
+        extractedCode = extractedCode.split("&")[0]
+    }
+    couponCodeInput.value = extractedCode
+    applyCoupon()
+}
+
 applyCouponButton.addEventListener("click", applyCoupon);
 
 paymentButton.addEventListener("click", async (e) => {
@@ -163,7 +174,7 @@ paymentButton.addEventListener("click", async (e) => {
         const urlParams = new URLSearchParams(window.location.search);
         const formData = {
             name: form.name.value.trim(),
-            amount: (parseFloat(currentConfig.amount) - appliedDiscount + (parseFloat(currentConfig.amount)*0.18)).toFixed(2),
+            amount: (parseFloat(currentConfig.amount) - appliedDiscount + (parseFloat(currentConfig.amount) * 0.18)).toFixed(2),
             email: form.email.value.trim(),
             phone: form.phone.value.trim(),
             purpose: currentConfig.purpose,
