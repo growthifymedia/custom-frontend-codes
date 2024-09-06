@@ -163,7 +163,7 @@ paymentButton.addEventListener("click", async (e) => {
         const urlParams = new URLSearchParams(window.location.search);
         const formData = {
             name: form.name.value.trim(),
-            amount: (parseFloat(currentConfig.amount) - appliedDiscount + gst).toFixed(2),
+            amount: (parseFloat(currentConfig.amount) - appliedDiscount + (parseFloat(currentConfig.amount)*0.18)).toFixed(2),
             email: form.email.value.trim(),
             phone: form.phone.value.trim(),
             purpose: currentConfig.purpose,
