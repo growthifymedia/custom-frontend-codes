@@ -173,9 +173,15 @@ paymentButton.addEventListener("click", async (e) => {
         paymentButton.innerText = "Submitting...";
 
         const urlParams = new URLSearchParams(window.location.search);
+        const discountedAmount = parseFloat(currentConfig.amount) - appliedDiscount;
+        const gst = discountedAmount * 0.18;
+        const totalAmount = discountedAmount + gst;
+
+        // If you need it as a string with two decimal places:
+        const finalAmount = totalAmount.toFixed(2);
         const formData = {
             name: form.name.value.trim(),
-            amount: ((parseFloat(currentConfig.amount) - appliedDiscount) * 0.18).toFixed(2),
+            amount: finalAmount,
             email: form.email.value.trim(),
             phone: form.phone.value.trim(),
             purpose: currentConfig.purpose,
@@ -225,7 +231,7 @@ paymentButton.addEventListener("click", async (e) => {
             alert("An error occurred while processing your payment. Please try again.");
         } finally {
             paymentButton.style.opacity = 1;
-            paymentButton.innerText = `Pay ₹${((parseFloat(currentConfig.amount) - appliedDiscount) * 0.18).toFixed(2)}`;
+            paymentButton.innerText = `Pay ₹${finalAmount}`;
             paymentButton.disabled = false;
         }
     }
