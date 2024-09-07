@@ -40,12 +40,12 @@ let appliedCouponCode = "";
 const updateUIForPackage = (config) => {
     const originalAmount = parseFloat(config.amount);
     const discountedAmount = originalAmount - appliedDiscount;
-    const gst = Number(originalAmount) * 0.18;
+    const gst = discountedAmount * 0.18; // GST applied to the discounted amount
 
     document.getElementsByClassName("gst")[0].innerText = `+₹${gst.toFixed(2)}`;
     document.getElementsByClassName("amount")[0].innerText = `₹${originalAmount.toFixed(2)}`;
     document.getElementsByClassName("total-amount")[0].innerText = `₹${(discountedAmount + gst).toFixed(2)}`;
-    paymentButton.innerText = `Pay ₹${(parseFloat(currentConfig.amount) - appliedDiscount + (parseFloat(currentConfig.amount) * 0.18)).toFixed(2)}`;
+    paymentButton.innerText = `Pay ₹${(discountedAmount + gst).toFixed(2)}`;
 
     if (appliedDiscount > 0) {
         discountRow.classList.remove("hidden");
@@ -61,6 +61,7 @@ const updateUIForPackage = (config) => {
     </ul>
   `;
 };
+
 
 const setPackageType = (packageType) => {
     if (packageConfig[packageType]) {
@@ -174,7 +175,7 @@ paymentButton.addEventListener("click", async (e) => {
         const urlParams = new URLSearchParams(window.location.search);
         const formData = {
             name: form.name.value.trim(),
-            amount: (parseFloat(currentConfig.amount) - appliedDiscount + (parseFloat(currentConfig.amount) * 0.18)).toFixed(2),
+            amount: ((parseFloat(currentConfig.amount) - appliedDiscount) * 0.18).toFixed(2),
             email: form.email.value.trim(),
             phone: form.phone.value.trim(),
             purpose: currentConfig.purpose,
@@ -224,7 +225,7 @@ paymentButton.addEventListener("click", async (e) => {
             alert("An error occurred while processing your payment. Please try again.");
         } finally {
             paymentButton.style.opacity = 1;
-            paymentButton.innerText = `Pay ₹${(parseFloat(currentConfig.amount) - appliedDiscount + (parseFloat(currentConfig.amount) * 0.18)).toFixed(2)}`;
+            paymentButton.innerText = `Pay ₹${((parseFloat(currentConfig.amount) - appliedDiscount) * 0.18).toFixed(2)}`;
             paymentButton.disabled = false;
         }
     }
