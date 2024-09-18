@@ -1,174 +1,183 @@
-// Put this whole code in Custom Javascript Footer, before pasting this add a <script>paste your code in between this</script>
-
-const clientName = "RAVI";
-let amount = "199";
-let bumpAmount = "199";
-let bumpAmount2 = "299";
-const purpose = "test";
-const redirectUrl = "https://google.com";
-const redirectUrlBump = "https://google1.com"
-const redirectUrlBump2 = "https://google2.com"
-const userDetailWebhook =
-    "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc";
-const paymentDetailWebhook =
-    "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzEi_pc";
-const checkPaymentWebhook =
-    "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzQi_pc";
-const userImage = "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg";
-const baseUrl = "https://growthifymedia-services.onrender.com";
-let data;
-
-const form = document.getElementById("details");
-const paymentButton = document.getElementById("payment");
-const bump = document.getElementById("bump");
-const bump2 = document.getElementById("bump2");
-const addOn = document.getElementById("addOn");
-const addOn2 = document.getElementById("addOn2");
-const amountValue = document.getElementsByClassName("amount")[0];
-const totalAmountValue = document.getElementsByClassName("total-amount")[0];
-
-amountValue.innerText = `₹${amount}.00`;
-totalAmountValue.innerText = `₹${amount}.00`;
-paymentButton.innerText = `Pay ₹${amount}`;
-
-const updateAmount = () => {
-    let newAmount = Number(amount);
-
-    if (addOn.checked) {
-        newAmount += Number(bumpAmount);
-    }
-
-    if (addOn2.checked) {
-        newAmount += Number(bumpAmount2);
-    }
-
-    amountValue.innerText = `₹${newAmount}.00`;
-    totalAmountValue.innerText = `₹${newAmount}.00`;
-    paymentButton.innerText = `Pay ₹${newAmount}`;
-};
-
-const onSubmitHandler = async (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const nameError = document.getElementById("nameError");
-    const emailError = document.getElementById("emailError");
-    const phoneError = document.getElementById("phoneError");
-
-    let isValid = true;
-
-    if (name === "") {
-        nameError.classList.remove("hidden");
-        isValid = false;
-    } else {
-        nameError.classList.add("hidden");
-    }
-
+// Configuration
+const config = {
+    clientName: "RAVI",
+    baseAmount: "47",
+    bump1Amount: "199",
+    bump2Amount: "299",
+    purpose: "test",
+    redirectUrl: "https://google.com",
+    redirectUrlBump1: "https://google1.com",
+    redirectUrlBump2: "https://google2.com",
+    userDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc",
+    paymentDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzEi_pc",
+    checkPaymentWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzQi_pc",
+    userImage: "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
+    baseUrl: "https://growthifymedia-services.onrender.com"
+  };
+  
+  // DOM Elements
+  const elements = {
+    form: document.getElementById("details"),
+    paymentButton: document.getElementById("payment"),
+    bump1: document.getElementById("bump"),
+    addOn1: document.getElementById("addOn"),
+    bump2: document.getElementById("bump2"),
+    addOn2: document.getElementById("addOn2"),
+    amountValue: document.getElementsByClassName("amount")[0],
+    totalAmountValue: document.getElementsByClassName("total-amount")[0],
+    nameInput: document.getElementById("name"),
+    emailInput: document.getElementById("email"),
+    phoneInput: document.getElementById("phone"),
+    nameError: document.getElementById("nameError"),
+    emailError: document.getElementById("emailError"),
+    phoneError: document.getElementById("phoneError")
+  };
+  
+  // Helper Functions
+  const calculateTotalAmount = () => {
+    let total = Number(config.baseAmount);
+    if (elements.addOn1.checked) total += Number(config.bump1Amount);
+    if (elements.addOn2.checked) total += Number(config.bump2Amount);
+    return total;
+  };
+  
+  const updateAmount = () => {
+    const newAmount = calculateTotalAmount();
+    elements.amountValue.innerText = `₹${newAmount}.00`;
+    elements.totalAmountValue.innerText = `₹${newAmount}.00`;
+    elements.paymentButton.innerText = `Pay ₹${newAmount}`;
+    return newAmount;
+  };
+  
+  const validateForm = () => {
+    const name = elements.nameInput.value.trim();
+    const email = elements.emailInput.value.trim();
+    const phone = elements.phoneInput.value.trim();
+    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        emailError.classList.remove("hidden");
-        isValid = false;
-    } else {
-        emailError.classList.add("hidden");
-    }
-
     const phoneRegex = /^[0-9]{10}$/;
-    if (!phoneRegex.test(phone)) {
-        phoneError.classList.remove("hidden");
-        isValid = false;
+  
+    let isValid = true;
+  
+    isValid = validateField(name !== "", elements.nameError) && isValid;
+    isValid = validateField(emailRegex.test(email), elements.emailError) && isValid;
+    isValid = validateField(phoneRegex.test(phone), elements.phoneError) && isValid;
+  
+    return isValid;
+  };
+  
+  const validateField = (condition, errorElement) => {
+    if (condition) {
+      errorElement.classList.add("hidden");
+      return true;
     } else {
-        phoneError.classList.add("hidden");
+      errorElement.classList.remove("hidden");
+      return false;
     }
-
-    if (!isValid) {
-        return;
-    }
-
-    paymentButton.disabled = true;
-    paymentButton.style.opacity = 0.7;
-    paymentButton.innerText = "Submitting...";
+  };
+  
+  const getRedirectUrl = () => {
+    if (elements.addOn1.checked && elements.addOn2.checked) return config.redirectUrlBump2;
+    if (elements.addOn1.checked) return config.redirectUrlBump1;
+    if (elements.addOn2.checked) return config.redirectUrlBump2;
+    return config.redirectUrl;
+  };
+  
+  const getFormData = () => {
     const urlParams = new URLSearchParams(window.location.search);
-
-    data = {
-        name,
-        email,
-        phone,
-        amount: Number(totalAmountValue.innerText.split("₹")[1].split(".")[0]),
-        purpose,
-        redirectUrl: addOn.checked && addOn2.checked ? redirectUrlBump2 :
-            addOn.checked ? redirectUrlBump :
-                addOn2.checked ? redirectUrlBump2 : redirectUrl,
-        utm_source: urlParams.get("utm_source"),
-        utm_medium: urlParams.get("utm_medium"),
-        utm_campaign: urlParams.get("utm_campaign"),
-        utm_adgroup: urlParams.get("utm_adgroup"),
-        utm_content: urlParams.get("utm_content"),
-        utm_term: urlParams.get("utm_term"),
-        utm_id: urlParams.get("utm_id"),
-        adsetname: urlParams.get("adset name"),
-        adname: urlParams.get("ad name"),
-        landingPageUrl: window.location.href.split('?')[0],
+    const amount = calculateTotalAmount();
+  
+    return {
+      name: elements.nameInput.value.trim(),
+      email: elements.emailInput.value.trim(),
+      phone: elements.phoneInput.value.trim(),
+      amount: amount,
+      purpose: config.purpose,
+      redirectUrl: getRedirectUrl(),
+      utm_source: urlParams.get("utm_source"),
+      utm_medium: urlParams.get("utm_medium"),
+      utm_campaign: urlParams.get("utm_campaign"),
+      utm_adgroup: urlParams.get("utm_adgroup"),
+      utm_content: urlParams.get("utm_content"),
+      utm_term: urlParams.get("utm_term"),
+      utm_id: urlParams.get("utm_id"),
+      adsetname: urlParams.get("adset name"),
+      adname: urlParams.get("ad name"),
+      landingPageUrl: window.location.href.split('?')[0],
     };
-
-    console.log(data);
-
-    const updatedData = {
-        formData: data,
-        userDetailWebhook,
-        paymentDetailWebhook,
-        checkPaymentWebhook,
-    };
-
+  };
+  
+  // API Calls
+  const createPayment = async (data) => {
+    const response = await fetch(
+      `${config.baseUrl}/api/payments/new/instamojo/createPayment/${config.clientName}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formData: data,
+          userDetailWebhook: config.userDetailWebhook,
+          paymentDetailWebhook: config.paymentDetailWebhook,
+          checkPaymentWebhook: config.checkPaymentWebhook,
+        }),
+      }
+    );
+    return response.json();
+  };
+  
+  // Event Handlers
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+  
+    setButtonState(true, "Submitting...");
+    
     try {
-        const response = await fetch(
-            `${baseUrl}/api/payments/new/instamojo/createPayment/${clientName}`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(updatedData),
-            }
-        );
-        const jsonData = await response.json();
-        paymentButton.style.opacity = 1;
-        paymentButton.innerText = `Pay ₹${data.amount}`;
-        paymentButton.disabled = false;
-        window.location.href = jsonData.data;
+      const formData = getFormData();
+      console.log(formData);
+      const result = await createPayment(formData);
+      
+      if (result && result.data) {
+        window.location.href = result.data;
+      } else {
+        throw new Error("Unable to create payment");
+      }
     } catch (error) {
-        alert("Some error occured! Please retry");
-        console.log(error);
+      console.error(error);
+      alert("An error occurred. Please try again later.");
+      setButtonState(false);
     }
-};
-
-form.addEventListener("submit", onSubmitHandler);
-
-bump.addEventListener("click", (e) => {
+  };
+  
+  const handleBumpClick = (bumpElement, addOnElement) => (e) => {
     e.stopPropagation();
-    if (e.target.id !== "addOn") {
-        addOn.checked = !addOn.checked;
-        updateAmount();
+    if (e.target !== addOnElement) {
+      addOnElement.checked = !addOnElement.checked;
+      updateAmount();
     }
-});
-
-addOn.addEventListener("click", (e) => {
+  };
+  
+  // Utility Functions
+  const setButtonState = (disabled, text) => {
+    elements.paymentButton.disabled = disabled;
+    elements.paymentButton.style.opacity = disabled ? 0.7 : 1;
+    elements.paymentButton.innerText = text || `Pay ₹${updateAmount()}`;
+  };
+  
+  // Event Listeners
+  elements.form.addEventListener("submit", handleSubmit);
+  elements.bump1.addEventListener("click", handleBumpClick(elements.bump1, elements.addOn1));
+  elements.addOn1.addEventListener("click", (e) => {
     e.stopPropagation();
-    addOn.checked = !addOn.checked;
+    elements.addOn1.checked = !elements.addOn1.checked;
     updateAmount();
-});
-
-bump2.addEventListener("click", (e) => {
+  });
+  elements.bump2.addEventListener("click", handleBumpClick(elements.bump2, elements.addOn2));
+  elements.addOn2.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (e.target.id !== "addOn2") {
-        addOn2.checked = !addOn2.checked;
-        updateAmount();
-    }
-})
-
-addOn2.addEventListener("click", (e) => {
-    e.stopPropagation();
-    addOn2.checked = !addOn2.checked;
+    elements.addOn2.checked = !elements.addOn2.checked;
     updateAmount();
-})
+  });
+  
+  // Initialize
+  updateAmount();
