@@ -13,7 +13,7 @@ const config = {
   paymentDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzEi_pc",
   checkPaymentWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzQi_pc",
   userImage: "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
-  baseUrl: "https://growthifymedia-services-test.onrender.com"
+  baseUrl: "https://growthifymedia-services.onrender.com"
 };
 
 // DOM Elements
