@@ -87,7 +87,7 @@ submitButton.addEventListener("click", async (e) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/free-lead/${sellerName}`,
+        `https://growthifymedia-services.onrender.com/api/free-lead/${sellerName}`,
         {
           method: "POST",
           headers: {
