@@ -1,6 +1,9 @@
+const sellerName = "STOCKTUTOR";
+const redirectUrl= "https://google.com";
+const webhook = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc"
+
 const form = document.getElementById("freeLead");
 const submitButton = document.getElementById("submitButton");
-
 const getInput = (name) => document.getElementById(name);
 
 const setBorder = (input, value) => {
@@ -79,32 +82,33 @@ submitButton.addEventListener("click", async (e) => {
         adName: urlParams.get("ad name"),
       },
       landingPageUrl: window.location.href,
-      webhook:
-        "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc",
+      webhook
     };
 
     try {
       const response = await fetch(
-        "https://auth-test-8eyl.onrender.com/api/free-lead",
+        `http://localhost:3000/api/free-lead/${sellerName}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
-        },
+        }
       );
 
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(
-          `HTTP error! status: ${response.status}, message: ${errorText}`,
+          `HTTP error! status: ${response.status}, message: ${errorText}`
         );
       }
 
       const result = await response.json();
       console.log("Success:", result);
-      alert("Registration successful!");
+      if (result.success) {
+        window.location.href = "/thank-you.html";
+      }
     } catch (error) {
       console.error("Error:", error.message);
       alert("An error occurred. Please try again.");
