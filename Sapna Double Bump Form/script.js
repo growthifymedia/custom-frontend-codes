@@ -1,17 +1,16 @@
-// Configuration
 const config = {
-  clientName: "STOCKTUTOR",
-  baseAmount: "199",
-  bump1Amount: "199",
-  bump2Amount: "299",
-  purpose: "test",
-  redirectUrl: "https://google.com",
-  redirectUrlBump1: "https://google1.com",
-  redirectUrlBump2: "https://google2.com",
-  redirectUrlBothBumps: "https://google3.com", // New redirect URL for both bumps
-  formSubmissionWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0MzI1MjY1NTUzNjUxM2Ei_pc",
-  paymentDetailsWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0MzM1MjZhNTUzNjUxM2Ii_pc",
-  apiKey: "rzp_live_zT6qxWnoCMD9tU",
+  clientName: "SAPNA",
+  baseAmount: "1",
+  bump1Amount: "96",
+  bump2Amount: "249",
+  purpose: "Report",
+  redirectUrl: "https://sapnnaverma.com/thank-you-numerology",
+  redirectUrlBump1: "https://sapnnaverma.com/thank-you-numerology",
+  redirectUrlBump2: "https://sapnnaverma.com/thank-you-numerology",
+  redirectUrlBothBumps: "https://sapnnaverma.com/thank-you-numerology", // New redirect URL for both bumps
+  formSubmissionWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzMDA0MzA1MjY1NTUzMzUxMzEi_pc",
+  paymentDetailsWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzMDA0MzA1MjY1NTUzMjUxMzQi_pc",
+  apiKey: "rzp_live_pOj720oFA5IEvd",
   userImage: "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
   baseUrl: "https://growthifymedia-services.onrender.com"
 };
@@ -33,8 +32,8 @@ const elements = {
   emailError: document.getElementById("emailError"),
   phoneError: document.getElementById("phoneError"),
   loaderContainer: document.getElementById("loader-container"),
-  gender: document.getElementById("gender").value,
-  birthday: document.getElementById("birthday").value
+  gender: document.getElementById("gender"),
+  birthday: document.getElementById("birthday")
 };
 
 // Helper Functions
@@ -101,9 +100,9 @@ const getFormData = () => {
     utm_medium: urlParams.get("utm_medium"),
     utm_campaign: urlParams.get("utm_campaign"),
     utm_adgroup: urlParams.get("utm_adgroup"),
-    utm_content: urlParams.get("utm_content"),
-    utm_term: elements.gender,
-    utm_id: elements.birthday,
+    utm_content: elements.gender.value,
+    utm_term: elements.birthday.value,
+    utm_id: urlParams.get("utm_id"),
     adsetname: urlParams.get("adset name"),
     adname: urlParams.get("ad name"),
     landingPageUrl: window.location.href.split('?')[0],
