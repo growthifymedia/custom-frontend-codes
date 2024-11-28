@@ -8,11 +8,13 @@ const config = {
   redirectUrlBump1: "https://sapnnaverma.com/thank-you-numerology",
   redirectUrlBump2: "https://sapnnaverma.com/thank-you-numerology",
   redirectUrlBothBumps: "https://sapnnaverma.com/thank-you-numerology", // New redirect URL for both bumps
-  formSubmissionWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzMDA0MzA1MjY1NTUzMzUxMzEi_pc",
-  paymentDetailsWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzMDA0MzA1MjY1NTUzMjUxMzQi_pc",
+  formSubmissionWebhook:
+    "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzMDA0MzA1MjY1NTUzMzUxMzEi_pc",
+  paymentDetailsWebhook:
+    "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZjMDYzMDA0MzA1MjY1NTUzMjUxMzQi_pc",
   apiKey: "rzp_live_pOj720oFA5IEvd",
   userImage: "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
-  baseUrl: "https://growthifymedia-services.onrender.com"
+  baseUrl: "https://growthifymedia-services.onrender.com",
 };
 
 // DOM Elements
@@ -33,7 +35,7 @@ const elements = {
   phoneError: document.getElementById("phoneError"),
   loaderContainer: document.getElementById("loader-container"),
   gender: document.getElementById("gender"),
-  birthday: document.getElementById("birthday")
+  birthday: document.getElementById("birthday"),
 };
 
 // Helper Functions
@@ -56,15 +58,17 @@ const validateForm = () => {
   const name = elements.nameInput.value.trim();
   const email = elements.emailInput.value.trim();
   const phone = elements.phoneInput.value.trim();
-  
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^[0-9]{10}$/;
 
   let isValid = true;
 
   isValid = validateField(name !== "", elements.nameError) && isValid;
-  isValid = validateField(emailRegex.test(email), elements.emailError) && isValid;
-  isValid = validateField(phoneRegex.test(phone), elements.phoneError) && isValid;
+  isValid =
+    validateField(emailRegex.test(email), elements.emailError) && isValid;
+  isValid =
+    validateField(phoneRegex.test(phone), elements.phoneError) && isValid;
 
   return isValid;
 };
@@ -80,7 +84,8 @@ const validateField = (condition, errorElement) => {
 };
 
 const getRedirectUrl = () => {
-  if (elements.addOn1.checked && elements.addOn2.checked) return config.redirectUrlBothBumps;
+  if (elements.addOn1.checked && elements.addOn2.checked)
+    return config.redirectUrlBothBumps;
   if (elements.addOn1.checked) return config.redirectUrlBump1;
   if (elements.addOn2.checked) return config.redirectUrlBump2;
   return config.redirectUrl;
@@ -105,9 +110,9 @@ const getFormData = () => {
     utm_id: urlParams.get("utm_id"),
     adsetname: urlParams.get("adset name"),
     adname: urlParams.get("ad name"),
-    landingPageUrl: window.location.href.split('?')[0],
+    landingPageUrl: window.location.href.split("?")[0],
     bump1: elements.addOn1.checked,
-    bump2: elements.addOn2.checked
+    bump2: elements.addOn2.checked,
   };
 };
 
@@ -127,11 +132,11 @@ const getRazorpayOptions = (orderId) => ({
     contact: elements.phoneInput.value.trim(),
   },
   notes: {
-    address: "Razorpay Corporate Office"
+    address: "Razorpay Corporate Office",
   },
   theme: {
-    color: "#3399cc"
-  }
+    color: "#3399cc",
+  },
 });
 
 // API Calls
@@ -169,11 +174,11 @@ const handleSubmit = async (e) => {
   if (!validateForm()) return;
 
   setButtonState(true, "Submitting...");
-  
+
   try {
     const formData = getFormData();
     const result = await createOrder(formData);
-    
+
     if (result && result.order && result.order.id) {
       const rzp1 = new Razorpay(getRazorpayOptions(result.order.id));
       rzp1.open();
@@ -183,6 +188,7 @@ const handleSubmit = async (e) => {
   } catch (error) {
     console.error(error);
     alert("An error occurred. Please try again later.");
+  } finally {
     setButtonState(false);
   }
 };
@@ -198,7 +204,7 @@ const handlePaymentSuccess = async (response) => {
       razorpay_signature: response.razorpay_signature,
     });
     console.log(verificationData);
-    
+
     window.location.href = getRedirectUrl();
   } catch (error) {
     console.error(error);
@@ -224,13 +230,19 @@ const setButtonState = (disabled, text) => {
 
 // Event Listeners
 elements.form.addEventListener("submit", handleSubmit);
-elements.bump1.addEventListener("click", handleBumpClick(elements.bump1, elements.addOn1));
+elements.bump1.addEventListener(
+  "click",
+  handleBumpClick(elements.bump1, elements.addOn1)
+);
 elements.addOn1.addEventListener("click", (e) => {
   e.stopPropagation();
   elements.addOn1.checked = !elements.addOn1.checked;
   updateAmount();
 });
-elements.bump2.addEventListener("click", handleBumpClick(elements.bump2, elements.addOn2));
+elements.bump2.addEventListener(
+  "click",
+  handleBumpClick(elements.bump2, elements.addOn2)
+);
 elements.addOn2.addEventListener("click", (e) => {
   e.stopPropagation();
   elements.addOn2.checked = !elements.addOn2.checked;

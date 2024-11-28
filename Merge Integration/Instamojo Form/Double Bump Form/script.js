@@ -1,17 +1,16 @@
-// Configuration
 const config = {
-  clientName: "ANKIT_TEST",
-  baseAmount: "199",
+  clientName: "SALMAN",
+  baseAmount: "9",
   bump1Amount: "199",
   bump2Amount: "299",
-  purpose: "test",
-  redirectUrl: "https://google.com",
-  redirectUrlBump1: "https://google1.com",
-  redirectUrlBump2: "https://google2.com",
-  redirectUrlBothBumps: "https://google3.com", // New redirect URL for both bumps
-  userDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc",
-  paymentDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzEi_pc",
-  checkPaymentWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNjUxMzQi_pc",
+  purpose: "10X Your Business Growth",
+  redirectUrl: "https://link.safaltransformation.com/yt-ty",
+  redirectUrlBump1: "https://link.safaltransformation.com/bump1",
+  redirectUrlBump2: "https://link.safaltransformation.com/bump2",
+  redirectUrlBothBumps: "https://link.safaltransformation.com/bump-both", // New redirect URL for both bumps
+  userDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0Mzc1MjZlNTUzMDUxMzUi_pc",
+  paymentDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0Mzc1MjZlNTUzMTUxMzUi_pc",
+  checkPaymentWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0Mzc1MjZlNTUzMTUxM2Ii_pc",
   userImage: "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
   baseUrl: "https://growthifymedia-services.onrender.com"
 };

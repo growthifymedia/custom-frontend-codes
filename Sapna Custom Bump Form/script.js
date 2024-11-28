@@ -220,12 +220,13 @@ const onSubmitHandler = async (e) => {
     }
   } catch (error) {
     alert("Some error occured! Please retry");
+    console.log(error);
+  } finally {
     paymentButton.disabled = false;
     paymentButton.style.opacity = 1;
     paymentButton.innerText = `Pay ₹${
       addOn.checked ? Number(amount) + Number(bumpAmount) : amount
     }`;
-    console.log(error);
   }
 };
 
