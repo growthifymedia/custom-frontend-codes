@@ -132,8 +132,8 @@ paymentButton.addEventListener("click", async (e) => {
     name: form.name.value.trim(),
     email: form.email.value.trim(),
     phone: form.phone.value.trim(),
-          gender: form.gender.value,
-          birthday: form.birthday.value,
+    gender: form.gender.value,
+    birthday: form.birthday.value,
   };
 
   let isValid = true;
@@ -195,7 +195,7 @@ paymentButton.addEventListener("click", async (e) => {
       utm_id: urlParams.get("utm_id"),
       adsetname: urlParams.get("adset name"),
       adname: urlParams.get("ad name"),
-      landingPageUrl: window.location.href.split('?')[0],
+      landingPageUrl: window.location.href.split("?")[0],
     };
 
     const updatedData = {
@@ -227,16 +227,14 @@ paymentButton.addEventListener("click", async (e) => {
         rzp1.open();
       } else {
         alert("Error: Unable to retrieve order ID. Please try again later.");
-        paymentButton.disabled = false;
-        paymentButton.style.opacity = 1;
-        paymentButton.innerText = `Pay ₹${amount}`;
       }
     } catch (error) {
       alert("Some error occured! Please retry");
+      console.log(error);
+    } finally {
       paymentButton.disabled = false;
       paymentButton.style.opacity = 1;
       paymentButton.innerText = `Pay ₹${amount}`;
-      console.log(error);
     }
   }
 });
