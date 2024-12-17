@@ -1,17 +1,16 @@
-// Configuration
 const config = {
-    clientName: "STOCKTUTOR",
+    clientName: "SALMANKHAN",
     baseAmount: "0",
     bump1Amount: "199",
     bump2Amount: "299",
-    purpose: "test",
-    redirectUrl: "https://google.com",
-    redirectUrlBump1: "https://google1.com",
-    redirectUrlBump2: "https://google2.com",
-    redirectUrlBothBumps: "https://google3.com", // New redirect URL for both bumps
-    formSubmissionWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0MzI1MjY1NTUzNjUxM2Ei_pc",
-    paymentDetailsWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0MzM1MjZhNTUzNjUxM2Ii_pc",
-    apiKey: "rzp_live_zT6qxWnoCMD9tU",
+    purpose: "10X Your Business Growth",
+    redirectUrl: "https://link.safaltransformation.com/yt-ty",
+    redirectUrlBump1: "https://link.safaltransformation.com/bump1",
+    redirectUrlBump2: "https://link.safaltransformation.com/bump2",
+    redirectUrlBothBumps: "https://link.safaltransformation.com/bump-both", // New redirect URL for both bumps
+    userDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0Mzc1MjZlNTUzMDUxMzUi_pc",
+    paymentDetailWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0Mzc1MjZlNTUzMTUxMzUi_pc",
+    checkPaymentWebhook: "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMDA0Mzc1MjZlNTUzMTUxM2Ii_pc",
     userImage: "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
     baseUrl: "https://growthifymedia-services.onrender.com"
   };
@@ -31,8 +30,7 @@ const config = {
     phoneInput: document.getElementById("phone"),
     nameError: document.getElementById("nameError"),
     emailError: document.getElementById("emailError"),
-    phoneError: document.getElementById("phoneError"),
-    loaderContainer: document.getElementById("loader-container")
+    phoneError: document.getElementById("phoneError")
   };
   
   // Helper Functions
@@ -95,8 +93,9 @@ const config = {
       name: elements.nameInput.value.trim(),
       email: elements.emailInput.value.trim(),
       phone: elements.phoneInput.value.trim(),
-      amount: amount * 100, // Razorpay expects amount in paise
+      amount: amount,
       purpose: config.purpose,
+      redirectUrl: getRedirectUrl(),
       utm_source: urlParams.get("utm_source"),
       utm_medium: urlParams.get("utm_medium"),
       utm_campaign: urlParams.get("utm_campaign"),
@@ -107,58 +106,22 @@ const config = {
       adsetname: urlParams.get("adset name"),
       adname: urlParams.get("ad name"),
       landingPageUrl: window.location.href.split('?')[0],
-      bump1: elements.addOn1.checked,
-      bump2: elements.addOn2.checked
     };
   };
   
-  // Razorpay Configuration
-  const getRazorpayOptions = (orderId) => ({
-    key: config.apiKey,
-    amount: calculateTotalAmount() * 100,
-    currency: "INR",
-    name: config.clientName,
-    description: config.purpose,
-    image: config.userImage,
-    order_id: orderId,
-    handler: handlePaymentSuccess,
-    prefill: {
-      name: elements.nameInput.value.trim(),
-      email: elements.emailInput.value.trim(),
-      contact: elements.phoneInput.value.trim(),
-    },
-    notes: {
-      address: "Razorpay Corporate Office"
-    },
-    theme: {
-      color: "#3399cc"
-    }
-  });
-  
   // API Calls
-  const createOrder = async (data) => {
+  const createPayment = async (data) => {
     const response = await fetch(
-      `${config.baseUrl}/api/payments/new/razorpay/createOrder/${config.clientName}`,
+      `${config.baseUrl}/api/payments/new/instamojo/createPayment/${config.clientName}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           formData: data,
-          userWebhook: config.formSubmissionWebhook,
-          paymentWebhook: config.paymentDetailsWebhook,
+          userDetailWebhook: config.userDetailWebhook,
+          paymentDetailWebhook: config.paymentDetailWebhook,
+          checkPaymentWebhook: config.checkPaymentWebhook,
         }),
-      }
-    );
-    return response.json();
-  };
-  
-  const verifyPayment = async (paymentData) => {
-    const response = await fetch(
-      `${config.baseUrl}/api/payments/new/razorpay/verify/${config.clientName}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(paymentData),
       }
     );
     return response.json();
@@ -167,7 +130,8 @@ const config = {
   // Event Handlers
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(elements.totalAmountValue === "0") {
+    const amount = calculateTotalAmount();
+    if(amount === 0) {
         return;
     }
     if (!validateForm()) return;
@@ -176,39 +140,19 @@ const config = {
     
     try {
       const formData = getFormData();
-      const result = await createOrder(formData);
+      console.log(formData);
+      const result = await createPayment(formData);
       
-      if (result && result.order && result.order.id) {
-        const rzp1 = new Razorpay(getRazorpayOptions(result.order.id));
-        rzp1.open();
+      if (result && result.data) {
+        window.location.href = result.data;
       } else {
-        throw new Error("Unable to retrieve order ID");
+        throw new Error("Unable to create payment");
       }
     } catch (error) {
       console.error(error);
       alert("An error occurred. Please try again later.");
     }
     setButtonState(false);
-  };
-  
-  const handlePaymentSuccess = async (response) => {
-    elements.form.style.display = "none";
-    elements.loaderContainer.style.display = "flex";
-  
-    try {
-      const verificationData = await verifyPayment({
-        razorpay_payment_id: response.razorpay_payment_id,
-        razorpay_order_id: response.razorpay_order_id,
-        razorpay_signature: response.razorpay_signature,
-      });
-      console.log(verificationData);
-      
-      window.location.href = getRedirectUrl();
-    } catch (error) {
-      console.error(error);
-      alert("Payment verification failed. Please contact support.");
-      setButtonState(false);
-    }
   };
   
   const handleBumpClick = (bumpElement, addOnElement) => (e) => {
@@ -243,3 +187,4 @@ const config = {
   
   // Initialize
   updateAmount();
+  
