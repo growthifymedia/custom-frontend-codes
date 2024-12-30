@@ -237,12 +237,13 @@ form.addEventListener("submit", onSubmitHandler);
 bump.addEventListener("click", (e) => {
     e.stopPropagation();
     if (e.target.id !== "addOn") {
-        addOn.checked = !addOn.checked;
-        updateAmount();
+      addOn.checked = !addOn.checked;
+      updateAmount();
     }
-});
+  });
 
 addOn.addEventListener("click", (e) => {
     e.stopPropagation();
+    addOn.checked = !addOn.checked;
     updateAmount();
-});
+  });
