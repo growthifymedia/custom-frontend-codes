@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workshop Details</title>
+  </head>
+  <body>
+    <h1>Workshop Details</h1>
+    <p><strong>Workshop Name:</strong> <span id="workshopName"></span></p>
+    <p><strong>Workshop Date:</strong> <span id="workshopDate"></span></p>
+    <p><strong>Workshop Time:</strong> <span id="workshopTime"></span></p>
+    <p><strong>Workshop Duration:</strong> <span id="workshopDuration"></span></p>
+
+    <script>
+      const sellerName = "RAVI";
+
+      // Function to format date to "Month Day, Year" (e.g., January 25, 2025)
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      }
+
+      // Function to format time to "HH:MM AM/PM" (e.g., 2:30 PM)
+      function formatTime(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        });
+      }
+
+      async function fetchOngoingWorkshopDetails() {
+        try {
+          const res = await fetch(
+            `https://auth-test-8eyl.onrender.com/api/reset/ongoing?sellerName=${sellerName}`
+          );
+
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+
+          const data = await res.json();
+
+          // Format the date and time
+          const formattedDate = formatDate(data.data.workshopDate);
+          const formattedTime = formatTime(data.data.workshopTime);
+
+          // Populate the data into the HTML
+          document.getElementById("workshopName").textContent =
+            data.data.workshopName || "N/A";
+          document.getElementById("workshopDate").textContent = formattedDate;
+          document.getElementById("workshopTime").textContent = formattedTime;
+          document.getElementById("workshopDuration").textContent = `${data.data.workshopDuration} mins` || "N/A";
+        } catch (error) {
+          console.error("Error fetching workshop details:", error);
+          // Optionally, display an error message in the HTML
+        //   document.getElementById("workshopName").textContent =
+        //     "Failed to load data";
+        //   document.getElementById("workshopDate").textContent =
+        //     "Failed to load data";
+        //   document.getElementById("workshopTime").textContent =
+        //     "Failed to load data";
+        }
+      }
+
+      fetchOngoingWorkshopDetails();
+    </script>
+  </body>
+</html>
