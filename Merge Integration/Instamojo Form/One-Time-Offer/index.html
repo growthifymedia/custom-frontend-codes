@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Razorpay Test Form</title>
+    <!-- Put this piece of code in Custom Javascript Header -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Till here -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Create a new popup form and paste this piece of code in HTML component, search for the 2nd comment to check till where you need to copy -->
+
+    <div class="max-w-md mx-auto">
+      <form method="post" id="details">
+        <h1 class="text-2xl font-semibold mb-6">Payment Details</h1>
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium mb-2">
+            Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-lg block w-full p-2.5"
+            placeholder="Enter Name"
+            type="text"
+          />
+          <p id="nameError" class="hidden text-red-500 text-xs m-1">
+            Please enter your name.
+          </p>
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium mb-2">
+            Email
+          </label>
+          <input
+            id="email"
+            name="email"
+            class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-lg block w-full p-2.5"
+            placeholder="Enter Email"
+            type="text"
+          />
+          <p id="emailError" class="hidden text-red-500 text-xs m-1">
+            Please enter a valid email address.
+          </p>
+        </div>
+        <div class="mb-4">
+          <label for="phone" class="block text-sm font-medium mb-2">
+            Phone
+          </label>
+          <div class="flex">
+            <span
+              class="inline-flex items-center px-3 text-sm text-gray-500 bg-gray-200 border border-r-0 border-[#d1d5db] rounded-l-md"
+            >
+              IND
+            </span>
+            <input
+              id="phone"
+              name="phone"
+              class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-none rounded-r-lg block w-full p-2.5"
+              placeholder="Enter Phone"
+              type="text"
+            />
+          </div>
+          <p id="phoneError" class="hidden text-red-500 text-xs m-1">
+            Please enter valid 10 digit phone number.
+          </p>
+        </div>
+        <div
+          id="bump"
+          class="border-dashed border-2 border-gray-500 rounded-lg p-3 my-6"
+        >
+          <div class="flex justify-between items-center gap-4">
+            <div class="flex gap-2">
+              <!-- <label class="inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="addOn" value="" class="h-4 w-4" />
+              </label> -->
+              <p class="text-sm font-medium" style="line-height: 15px">
+                37% of customers choose this option to get 2X value
+              </p>
+            </div>
+            <div>
+              <p class="text-sm line-through" style="line-height: 17px">
+                ₹2,499.00
+              </p>
+              <p class="text-lg font-semibold" style="line-height: 17px">
+                ₹199.00
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-sm text-gray-600 my-4">
+              What you'll get in One Time Upgrade?
+            </p>
+            <div>
+              <p class="text-sm text-gray-600">Job Search strategy Templates</p>
+              <p class="text-sm text-gray-600">
+                ✅ Resume Template (Value: Rs 999/-)
+              </p>
+              <p class="text-sm text-gray-600">
+                ✅ Resume Template (Value: Rs 999/-)
+              </p>
+              <p class="text-sm text-gray-600">
+                ✅ Resume Template (Value: Rs 999/-)
+              </p>
+              <p class="text-sm text-gray-600">
+                ✅ Resume Template (Value: Rs 999/-)
+              </p>
+            </div>
+          </div>
+          <div class="mt-6">
+            <p class="text-sm text-gray-600">
+              👍 Just at 199/- today👇(Less than your Monthly Mobile Recharge)
+            </p>
+          </div>
+          <div class="text-xs text-gray-600 bg-gray-100 p-2 rounded-lg mt-4">
+            P.S. You will not get this offer once you leave this page because
+            avoiding mistakes costs more than making them.
+          </div>
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between mb-2">
+            <span class="text-sm font-medium">Original Price</span>
+            <span class="text-sm amount">₹9.00</span>
+          </div>
+          <hr />
+          <div class="flex justify-between mt-2">
+            <span class="text-sm font-semibold">Total</span>
+            <span class="text-sm font-semibold total-amount">₹12.00</span>
+          </div>
+        </div>
+        <button
+          type="submit"
+          id="payment"
+          class="w-full bg-black text-white rounded-lg px-4 py-2.5 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 cursor:pointer total-amount"
+        >
+          Pay ₹12.00
+        </button>
+      </form>
+      <div
+      class="hidden items-center justify-center"
+      style="height: 500px; width: 500px"
+      id="loader-container"
+    >
+      <div class="loader"></div>
+    </div>
+    </div>
+
+    <!-- Till here -->
+
+    <!-- Copy This code and paste it in Custom Javascript Footer -->
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- Till here -->
+    <script src="./script.js"></script>
+  </body>
+</html>
