@@ -1,0 +1,51 @@
+<html>
+<p id="wStartDate" style= "text-align: center; font-weight:bold; font-size: 18px; 
+margin-top: 10px; margin-bottom: 0px; line-height: 22px; color: #FFF">
+</p>
+
+
+<script>
+var wDate;
+        var apiUrl = "https://script.google.com/macros/s/AKfycbyXr42jP3qv8CJ8dhazJ9UGTY5eMijWScd1ML-aSuYFPKwo2_zg3LCUGolIpsDux4juaQ/exec?q=openinterest";
+        fetch(apiUrl)           //api for the get request
+            .then(response => response.json())
+            .then(data => {
+                console.log("data", data);
+                wDate = new Date(data.wDateTime);
+                let wDateTime = formatDate_(wDate);
+                document.getElementById("wStartDate").innerText = wDateTime;
+                // $('#wStartDate').text(wDateTime);
+              //  setInterval("updateTimer()", 1000);
+            })
+            .catch(error => 
+                document.getElementById("wStartDate").innerText = "No info available right now"
+            );
+        function formatDate_(date) {
+            let months = [
+                "January", "February",
+                "March", "April", "May",
+                "June", "July", "August",
+                "September", "October",
+                "November", "December"
+            ];
+            let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const dateOrdinal = (d) => {
+                return d + (31 == d || 21 == d || 1 == d ? "st" : 22 == d || 2 == d ? "nd" : 23 == d || 3 == d ? "rd" : "th")
+            };
+            const getTime = (date) => {
+                var hrs = date.getHours();
+                var mnts = date.getMinutes();
+                console.log("h", hrs, mnts)
+                var AMPM = hrs >= 12 ? 'PM' : 'AM';
+                hrs = hrs % 12;
+                hrs = hrs ? hrs : 12;
+                mnts = mnts < 10 ? '0' + mnts : mnts;
+                console.log("h", hrs, mnts)
+                var result = hrs + ':' + mnts + ' ' + AMPM;
+                // var result = hrs +' '+ AMPM;
+                return result;
+            }
+            return "📅 Start: "+ dateOrdinal(date.getDate()) + " " + months[date.getMonth()] + " " + days[date.getDay()]+ " | 🕕 " + getTime(date);
+        }
+</script>
+</html>
