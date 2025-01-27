@@ -21,6 +21,9 @@ var wDate;
                 document.getElementById("wStartDate").innerText = "No info available right now"
             );
         function formatDate_(date) {
+            if(date < new Date()) {
+                return "Stay tuned for next workshop"
+            }
             let months = [
                 "January", "February",
                 "March", "April", "May",
