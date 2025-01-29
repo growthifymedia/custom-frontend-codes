@@ -84,7 +84,7 @@
           if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
           const { data } = await res.json();
-          const { workshopDate, workshopTime, whatsappGroupName } = data;
+          const { workshopDate, workshopTime, whatsappGroupLink} = data;
 
           document.getElementById("workshopDetails").style.display = "flex";
           document.getElementById("workshopDate").textContent =
@@ -94,7 +94,7 @@
           document
             .getElementById("whatsAppBtn")
             .addEventListener("click", () => {
-              window.open(whatsappGroupName, "_blank");
+              window.open(whatsappGroupLink, "_blank");
             });
         } catch (error) {
           document.getElementById("noWorkshopDetails").style.display = "flex";
