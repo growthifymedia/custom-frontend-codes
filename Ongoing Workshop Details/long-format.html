@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>Workshop Details</title>
+  </head>
+  <body>
+    <div id="workshopDetails" class="hidden flex flex-col items-center">
+      <div class="flex flex-col items-center justify-between m-2">
+        <div
+          class="flex items-center gap-2 border-2 border-gray-300 rounded-md p-2"
+        >
+          <p>Start: </p>
+          <div class="flex items-center gap-2">
+            <p id="workshopDate" class="leading-5"></p>
+            <p>|</p>
+            <p id="workshopTime" class="leading-5"></p>
+          </div>
+        </div>
+      <button
+        id="whatsAppBtn"
+        class="bg-green-600 text-white border-none px-4 py-2 rounded-full mt-2"
+      >
+        Join Whatsapp Group
+      </button>
+    </div>
+    <div id="noWorkshopDetails" class="hidden p-2">
+      <p>Stay tuned for the next workshop</p>
+    </div>
+
+    <script>
+      const sellerName = "SNEHI";
+
+      // Format date to "Day(st/nd/rd/th) Month, Year"
+      const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate();
+
+        const ordinalSuffix = (day) => {
+          if (day > 3 && day < 21) return "th";
+          switch (day % 10) {
+            case 1:
+              return "st";
+            case 2:
+              return "nd";
+            case 3:
+              return "rd";
+            default:
+              return "th";
+          }
+        };
+
+        return `${day}${ordinalSuffix(day)} ${date.toLocaleDateString("en-US", {
+          month: "short",
+          weekday: "long",
+        })}`;
+      };
+      // Format time to "HH:MM AM/PM"
+      const formatTime = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        });
+      };
+
+      // Fetch ongoing workshop details
+      const fetchOngoingWorkshopDetails = async () => {
+        try {
+          const res = await fetch(
+            `https://auth-test-8eyl.onrender.com/api/reset/ongoing?sellerName=${sellerName}`
+          );
+          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+          const { data } = await res.json();
+          const { workshopDate, workshopTime, whatsappGroupLink } = data;
+
+          document.getElementById("workshopDetails").style.display = "flex";
+          document.getElementById("workshopDate").textContent =
+            formatDate(workshopDate);
+          document.getElementById("workshopTime").textContent =
+            formatTime(workshopTime);
+          document
+            .getElementById("whatsAppBtn")
+            .addEventListener("click", () => {
+              window.open(whatsappGroupLink, "_blank");
+            });
+        } catch (error) {
+          document.getElementById("noWorkshopDetails").style.display = "flex";
+        }
+      };
+
+      fetchOngoingWorkshopDetails();
+    </script>
+  </body>
+</html>
