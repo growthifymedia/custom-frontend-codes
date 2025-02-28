@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p
+      id="wStartDate"
+      style="
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        line-height: 22px;
+        color: #000000;
+      "
+    ></p>
+  </body>
+  <script>
+    let wDate;
+    const apiUrl =
+      "https://script.google.com/macros/s/AKfycbwPKK7S_tw7fxcefeGroU_D_jyyGCPhnmat3_Y_pV8Q_EUnhAKt8TSBT7kunWsT8az7kA/exec?q=bishalfree";
+    const dateBlock = document.getElementById("wStartDate");
+    fetch(apiUrl) //api for the get request
+      .then((response) => response.json())
+      .then((data) => {
+        wDate = new Date(data.wDateTime);
+        let wDateTime = formatDate_(wDate);
+        dateBlock.innerHTML = wDateTime;
+        //     setInterval("updateTimer()", 1000);
+      });
+
+    function formatDate_(date) {
+      let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      let days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const dateOrdinal = (d) => {
+        return (
+          d +
+          (31 == d || 21 == d || 1 == d
+            ? "st"
+            : 22 == d || 2 == d
+            ? "nd"
+            : 23 == d || 3 == d
+            ? "rd"
+            : "th")
+        );
+      };
+
+      const getTime = (date) => {
+        var hrs = date.getHours();
+        var mnts = date.getMinutes();
+        var AMPM = hrs >= 12 ? "PM" : "AM";
+        hrs = hrs % 12;
+        hrs = hrs ? hrs : 12;
+        mnts = mnts < 10 ? "0" + mnts : mnts;
+        var result = hrs + ":" + mnts + " " + AMPM;
+        //      var result = hrs +' '+ AMPM;
+        return result;
+      };
+
+      return ` ${dateOrdinal(date.getDate())} ${months[date.getMonth()]}, ${
+        days[date.getDay()]
+      } |  ${getTime(date)}`;
+    }
+  </script>
+</html>
