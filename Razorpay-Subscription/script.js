@@ -103,7 +103,7 @@ submitButton.addEventListener("click", async (e) => {
       alert("An error occurred. Please try again.");
     } finally {
       submitButton.disabled = false;
-      submitButton.innerText = "Submit";
+      submitButton.innerText = "Pay ₹12.00";
       submitButton.style.cursor = "pointer";
       submitButton.style.backgroundColor = "black";
     }
