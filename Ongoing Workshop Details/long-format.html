@@ -21,10 +21,16 @@
         </div>
       <button
         id="whatsAppBtn"
-        class="bg-green-600 text-white border-none px-4 py-2 rounded-full mt-2"
+        class="bg-green-600 text-white border-none px-4 py-2 rounded-full mt-2 cursor-pointer"
       >
         Join Whatsapp Group
       </button>
+      <button
+      id="zoomBtn"
+      class="bg-blue-500 text-white border-none px-4 py-2 rounded-full mt-2 cursor-pointer"
+    >
+      Join Zoom Webinar
+    </button>
     </div>
     <div id="noWorkshopDetails" class="hidden p-2">
       <p>Stay tuned for the next workshop</p>
@@ -76,7 +82,8 @@
           if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
           const { data } = await res.json();
-          const { workshopDate, workshopTime, whatsappGroupLink } = data;
+          console.log(data)
+          const { workshopDate, workshopTime, whatsappGroupLink, zoomLink } = data;
 
           document.getElementById("workshopDetails").style.display = "flex";
           document.getElementById("workshopDate").textContent =
@@ -87,6 +94,11 @@
             .getElementById("whatsAppBtn")
             .addEventListener("click", () => {
               window.open(whatsappGroupLink, "_blank");
+            });
+            document
+            .getElementById("zoomBtn")
+            .addEventListener("click", () => {
+              window.open(zoomLink, "_blank");
             });
         } catch (error) {
           document.getElementById("noWorkshopDetails").style.display = "flex";
