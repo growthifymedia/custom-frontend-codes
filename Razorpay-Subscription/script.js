@@ -1,8 +1,9 @@
 const sellerName = "TAPAN_TEST";
+// const baseUrl = "http://localhost:3000";
 const baseUrl = "https://backend-test.growthifymedia.com";
 const webhook =
   "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZlMDYzMTA0M2M1MjZkNTUzNzUxM2Ei_pc";
-const paymentWebhook =
+const subscriptionWebhook =
   "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTZlMDYzMTA0M2M1MjZkNTUzNzUxM2Ei_pc";
 const redirectionUrl = "https://google.com";
 const sellerApiKey = "rzp_test_6yEg7KBlHdDa7q";
@@ -174,7 +175,7 @@ submitButton.addEventListener("click", async (e) => {
     plan_id,
     total_count: totalCount,
     customer_notify: customerNotify,
-    notes: { webhook, paymentWebhook, redirectionUrl },
+    notes: { webhook, subscriptionWebhook, redirectionUrl },
   };
 
   try {
