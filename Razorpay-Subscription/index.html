@@ -63,14 +63,26 @@
           </p>
         </div>
         <div class="mb-4">
+          <label for="plan-type" class="block text-sm font-medium mb-2">
+            Plan Type
+          </label>
+          <select name="plan-type" id="plan-type" class="bg-white border border-[#d1d5db] text-[#111827] sm:text-sm rounded-none rounded-r-lg block w-full p-2.5">
+            <option value="quarterly">Quarterly</option>
+            <option value="annually">Annually</option>
+          </select>
+          <p id="planTypeError" class="hidden text-red-500 text-xs m-1">
+            Please select a plan type.
+          </p>
+        </div>
+        <div class="mb-4">
           <div class="flex justify-between mb-2">
             <span class="text-sm font-medium">Original Price</span>
-            <span class="text-sm amount">₹9.00</span>
+            <span id="original-price" class="text-sm amount">₹3.00</span>
           </div>
           <hr />
           <div class="flex justify-between mt-2">
             <span class="text-sm font-semibold">Total</span>
-            <span class="text-sm font-semibold total-amount">₹12.00</span>
+            <span id="total-price" class="text-sm font-semibold total-amount">₹3.00</span>
           </div>
         </div>
         <button
@@ -78,10 +90,11 @@
           id="payment"
           class="w-full bg-black text-white rounded-lg px-4 py-2.5 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 cursor:pointer"
         >
-          Pay ₹12.00
+          Pay ₹3.00
         </button>
       </form>
     </div>
     <script src="script.js"></script>
+    <script src = "https://checkout.razorpay.com/v1/checkout.js"></script>
   </body>
 </html>
