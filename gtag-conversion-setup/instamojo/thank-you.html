@@ -21,10 +21,12 @@
       gtag("config", "AW-11545611223");
     </script>
     <script>
-      const email = window.location.href.split("?")[1].split("=")[1];
-      gtag("set", "user_data", {
-        email: email,
-      });
+      const email = window.location.href.split("?")[1]?.split("=")[1];
+      if (email) {
+        gtag("set", "user_data", {
+          email: email,
+        });
+      }
     </script>
   </body>
 </html>
