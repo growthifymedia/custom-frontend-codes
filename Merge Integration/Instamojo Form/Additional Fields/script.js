@@ -125,8 +125,6 @@
         adname: urlParams.get("ad name"),
         landingPageUrl: window.location.href.split('?')[0],
       };
-      console.log("Form Data:", data);
-      return;
 
       const updatedData = {
         formData: data,
