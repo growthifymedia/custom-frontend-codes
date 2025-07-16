@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Multi-Step Popup Form</title>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- Your CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- JavaScript File -->
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <!-- Open Modal Button -->
+    <button class="btn" id="openFormBtn" onclick="openModal()">
+      Open Form
+    </button>
+
+    <!-- Modal Popup -->
+    <div class="modal hidden" id="popupModal">
+      <div class="modal-content">
+        <form id="form">
+          <!-- Step 1 -->
+          <div id="step1" class="form-container">
+            <div class="input-group">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <div class="input-group">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div class="input-group">
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Enter your phone number"
+                pattern="[0-9]{10}"
+                maxlength="10"
+                required
+              />
+            </div>
+
+            <div class="input-group">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Create a password"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div id="step2" class="hidden">
+            <div class="question">
+              <label><strong>Q1: What is your current revenue?</strong></label>
+              <div class="radio-group">
+                <label
+                  ><input type="radio" name="revenue" value="less_than_5cr" />
+                  Less than 5 Cr</label
+                >
+                <label
+                  ><input type="radio" name="revenue" value="5to10cr" /> 5 Cr to
+                  10 Cr</label
+                >
+                <label
+                  ><input type="radio" name="revenue" value="10to20cr" /> 10 Cr
+                  to 20 Cr</label
+                >
+                <label
+                  ><input type="radio" name="revenue" value="20plus" /> 20
+                  Cr+</label
+                >
+              </div>
+            </div>
+
+            <div class="question">
+              <label
+                ><strong
+                  >Q2: What is the major challenge you are facing?</strong
+                ></label
+              >
+              <div class="radio-group">
+                <label
+                  ><input type="radio" name="challenge" value="funding" />
+                  Funding</label
+                >
+                <label
+                  ><input type="radio" name="challenge" value="operations" />
+                  Operations</label
+                >
+                <label
+                  ><input type="radio" name="challenge" value="team" /> Team
+                  management</label
+                >
+                <label
+                  ><input type="radio" name="challenge" value="scaling" />
+                  Scaling</label
+                >
+                <label
+                  ><input type="radio" name="challenge" value="all" /> All of
+                  the above</label
+                >
+              </div>
+            </div>
+
+            <div class="question">
+              <label
+                ><strong
+                  >Q3: Is your business profitable over the last 3
+                  years?</strong
+                ></label
+              >
+              <div class="radio-group">
+                <label
+                  ><input type="radio" name="profitable" value="yes" />
+                  Yes</label
+                >
+                <label
+                  ><input type="radio" name="profitable" value="no" /> No</label
+                >
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="button"
+              class="btn"
+              id="submitBtn"
+              onclick="submitStep2()"
+            >
+              Submit
+            </button>
+          </div>
+
+          <!-- Step Footer -->
+          <div class="step-footer">
+            <div class="step-indicator" id="stepIndicator">
+              <span id="stepLabel1" class="step-label active">Step 1</span>
+              <i id="stepLock2" class="fas fa-lock step-icon"></i>
+            </div>
+            <button
+              type="button"
+              id="nextBtn"
+              class="btn"
+              onclick="goToStep2()"
+            >
+              Next
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

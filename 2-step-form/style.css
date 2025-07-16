@@ -1,0 +1,118 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #eef2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-x: hidden; /* Optional safeguard */
+}
+
+/* Add tel input support to match others */
+
+.modal-content {
+  background: white;
+  padding: 30px 30px 90px;
+  border-radius: 8px;
+  width: 350px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden; /* Prevent horizontal scroll in modal */
+}
+
+.hidden {
+  display: none;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.step-footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-indicator {
+  display: flex;
+  gap: 25px;
+  font-size: 18px;
+}
+
+.step-label {
+  color: #007bff;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.step-icon {
+  font-size: 18px;
+  color: #ccc;
+}
+
+#nextBtn {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#nextBtn.hidden {
+  display: none;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+  font-size: 14px;
+}
+
+.question {
+  margin-bottom: 15px;
+}
