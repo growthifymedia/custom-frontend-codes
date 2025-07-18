@@ -22,6 +22,19 @@ function goToStep2() {
     alert("Please fill all fields.");
     return;
   }
+    // Email must contain "@" and follow general email structure
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  // Phone must be exactly 10 digits
+  const phoneRegex = /^[0-9]{10}$/;
+  if (!phoneRegex.test(phone)) {
+    alert("Phone number must be exactly 10 digits.");
+    return;
+  }
   fetch(webhook, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
