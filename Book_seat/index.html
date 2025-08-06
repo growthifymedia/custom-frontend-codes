@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Free Lead Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="bg-gray-50">
+    <div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+      <h2 class="text-xl font-semibold mb-4 text-center">Form A</h2>
+
+      <form id="freeLead">
+        <!-- Name -->
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium mb-2">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Enter Name"
+            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          />
+          <p id="nameError" class="hidden text-red-500 text-xs mt-1">Please enter your name.</p>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium mb-2">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="text"
+            placeholder="Enter Email"
+            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          />
+          <p id="emailError" class="hidden text-red-500 text-xs mt-1">Please enter a valid email address.</p>
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-4">
+          <label for="phone" class="block text-sm font-medium mb-2">Phone</label>
+          <div class="flex">
+            <span
+              class="inline-flex items-center px-3 text-sm text-gray-500 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md"
+            >
+              IND
+            </span>
+            <input
+              id="phone"
+              name="phone"
+              type="text"
+              placeholder="Enter Phone"
+              class="bg-white border border-gray-300 text-gray-900 text-sm rounded-none rounded-r-lg block w-full p-2.5"
+            />
+          </div>
+          <p id="phoneError" class="hidden text-red-500 text-xs mt-1">Please enter valid 10 digit phone number.</p>
+        </div>
+
+        <!-- DOB -->
+        <div class="mb-4">
+          <label for="dob" class="block text-sm font-medium mb-2">Date of Birth</label>
+          <input
+            id="dob"
+            name="dob"
+            type="date"
+            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          />
+        </div>
+
+        <!-- City -->
+        <div class="mb-4">
+          <label for="city" class="block text-sm font-medium mb-2">City</label>
+          <input
+            id="city"
+            name="city"
+            type="text"
+            placeholder="Enter City"
+            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          />
+        </div>
+
+        <!-- Purpose -->
+        <div class="mb-4">
+          <label for="purpose" class="block text-sm font-medium mb-2">Purpose</label>
+          <input
+            id="purpose"
+            name="purpose"
+            type="text"
+            placeholder="Enter Purpose"
+            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          />
+        </div>
+
+        <!-- Favorite Food -->
+        <div class="mb-4">
+          <label for="favorite_food" class="block text-sm font-medium mb-2">Favorite Food</label>
+          <input
+            id="favorite_food"
+            name="favorite_food"
+            type="text"
+            placeholder="Enter Your Favorite Food"
+            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          id="submitButton"
+          class="w-full bg-black text-white text-sm font-medium rounded-lg px-4 py-2.5 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50 cursor-pointer"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+
+    <!-- Your script that handles form submission -->
+    <script src="script.js"></script>
+  </body>
+</html>
