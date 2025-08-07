@@ -6,12 +6,12 @@
   font-family: Arial, sans-serif;
 }
 
-.b-page {
+.formB-page {
   background-color: #f9fafb;
   padding: 40px 0;
 }
 
-.b-container {
+.formB-container {
   max-width: 400px;
   margin: auto;
   background-color: #ffffff;
@@ -20,7 +20,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.b-heading {
+.formB-heading {
   text-align: center;
   font-size: 1.5rem;
   margin-bottom: 20px;
@@ -28,18 +28,18 @@
   color: #333;
 }
 
-.b-group {
+.formB-group {
   margin-bottom: 18px;
 }
 
-.b-group label {
+.formB-group label {
   display: block;
   margin-bottom: 6px;
   font-weight: 500;
   font-size: 0.95rem;
 }
 
-.b-group input {
+.formB-group input {
   width: 100%;
   padding: 10px 12px;
   font-size: 0.95rem;
@@ -48,17 +48,17 @@
   transition: border 0.3s ease;
 }
 
-.b-group input:focus {
+.formB-group input:focus {
   border-color: #000;
   outline: none;
 }
 
-.b-phone-wrap {
+.formB-phone-wrap {
   display: flex;
   align-items: center;
 }
 
-.b-code {
+.formB-code {
   padding: 10px 12px;
   background-color: #eee;
   border: 1px solid #ccc;
@@ -68,19 +68,19 @@
   color: #555;
 }
 
-.b-phone-wrap input {
+.formB-phone-wrap input {
   border-radius: 0 6px 6px 0;
   border-left: none;
 }
 
-.b-error {
+.formB-error {
   display: none;
   color: #e53935;
   font-size: 0.75rem;
   margin-top: 4px;
 }
 
-#b-submit-btn {
+#formB-submit-btn {
   width: 100%;
   background-color: #000;
   color: #fff;
@@ -93,6 +93,6 @@
   transition: background 0.3s ease;
 }
 
-#b-submit-btn:hover {
+#formB-submit-btn:hover {
   background-color: #222;
 }
