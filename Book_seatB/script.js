@@ -1,105 +1,105 @@
-const sellerName = "STOCKTUTOR";
-const redirectUrl = "https://workshop.wealthysandeep.com/double-ticket";
-const webhook = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc";
+const sellerNameB = "STOCKTUTOR";
+const redirectUrlB = "https://workshop.wealthysandeep.com/double-ticket";
+const webhookB = "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZhMDYzMjA0MzY1MjY1NTUzNTUxMzUi_pc";
 
 // Get form and button
-const form = document.getElementById("formB-lead-form");
-const submitButton = document.getElementById("formB-submit-btn");
+const formB = document.getElementById("formB-lead-form");
+const submitButtonB = document.getElementById("formB-submit-btn");
 
 // Utility function to get input element by ID
-const getInput = (id) => document.getElementById(id);
+const getInputB = (id) => document.getElementById(id);
 
 // Utility to set border color
-const setBorder = (input, value) => {
+const setBorderB = (input, value) => {
   input.style.border = value;
 };
 
 // Email and Phone validation
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-const isValidPhone = (phone) => /^[0-9]{10}$/.test(phone);
+const isValidEmailB = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isValidPhoneB = (phone) => /^[0-9]{10}$/.test(phone);
 
 // Show error and attach event to hide it on input
-const showError = (inputId, errorId) => {
-  const errorElement = getInput(errorId);
-  const input = getInput(inputId);
+const showErrorB = (inputId, errorId) => {
+  const errorElement = getInputB(errorId);
+  const input = getInputB(inputId);
 
   errorElement.style.display = "flex";
-  setBorder(input, "1px solid red");
+  setBorderB(input, "1px solid red");
 
   input.oninput = function () {
     errorElement.style.display = "none";
-    setBorder(input, "");
+    setBorderB(input, "");
   };
 };
 
 // Handle form submission
-submitButton.addEventListener("click", async (e) => {
+submitButtonB.addEventListener("click", async (e) => {
   e.preventDefault();
 
-  const formData = {
-    name: form["formB_name"].value.trim(),
-    email: form["formB_email"].value.trim(),
-    phone: form["formB_phone"].value.trim(),
-    dob: form["formB_dob"].value,
-    city: form["formB_city"].value.trim(),
-    purpose: form["formB_purpose"].value.trim(),
-    favorite_food: form["formB_favorite_food"].value.trim(),
+  const formDataB = {
+    name: formB["formB_name"].value.trim(),
+    email: formB["formB_email"].value.trim(),
+    phone: formB["formB_phone"].value.trim(),
+    dob: formB["formB_dob"].value,
+    city: formB["formB_city"].value.trim(),
+    purpose: formB["formB_purpose"].value.trim(),
+    favorite_food: formB["formB_favorite_food"].value.trim(),
   };
 
-  let isValid = true;
+  let isValidB = true;
 
   // Validations
-  if (!formData.name) {
-    showError("formB-name", "formB-name-error");
-    isValid = false;
+  if (!formDataB.name) {
+    showErrorB("formB-name", "formB-name-error");
+    isValidB = false;
   }
 
-  if (!isValidEmail(formData.email)) {
-    showError("formB-email", "formB-email-error");
-    isValid = false;
+  if (!isValidEmailB(formDataB.email)) {
+    showErrorB("formB-email", "formB-email-error");
+    isValidB = false;
   }
 
-  if (!isValidPhone(formData.phone)) {
-    showError("formB-phone", "formB-phone-error");
-    isValid = false;
+  if (!isValidPhoneB(formDataB.phone)) {
+    showErrorB("formB-phone", "formB-phone-error");
+    isValidB = false;
   }
 
-  if (!isValid) return;
+  if (!isValidB) return;
 
   // Disable button
-  submitButton.disabled = true;
-  submitButton.innerText = "Submitting...";
-  submitButton.style.cursor = "not-allowed";
-  submitButton.style.backgroundColor = "#ccc";
+  submitButtonB.disabled = true;
+  submitButtonB.innerText = "Submitting...";
+  submitButtonB.style.cursor = "not-allowed";
+  submitButtonB.style.backgroundColor = "#ccc";
 
   // UTM parameters
-  const urlParams = new URLSearchParams(window.location.search);
+  const urlParamsB = new URLSearchParams(window.location.search);
 
-  const data = {
-    ...formData,
+  const dataB = {
+    ...formDataB,
     utmParams: {
-      utm_source: urlParams.get("utm_source"),
-      utm_medium: urlParams.get("utm_medium"),
-      utm_campaign: urlParams.get("utm_campaign"),
-      utm_adgroup: urlParams.get("utm_adgroup"),
-      utm_content: urlParams.get("utm_content"),
-      utm_term: urlParams.get("utm_term"),
-      adsetName: urlParams.get("adset name"),
-      adName: urlParams.get("ad name"),
+      utm_source: urlParamsB.get("utm_source"),
+      utm_medium: urlParamsB.get("utm_medium"),
+      utm_campaign: urlParamsB.get("utm_campaign"),
+      utm_adgroup: urlParamsB.get("utm_adgroup"),
+      utm_content: urlParamsB.get("utm_content"),
+      utm_term: urlParamsB.get("utm_term"),
+      adsetName: urlParamsB.get("adset name"),
+      adName: urlParamsB.get("ad name"),
     },
     landingPageUrl: window.location.href,
-    webhook,
+    webhook: webhookB,
   };
 
   try {
     const response = await fetch(
-      `https://growthifymedia-services.onrender.com/api/free-lead/${sellerName}`,
+      `https://growthifymedia-services.onrender.com/api/free-lead/${sellerNameB}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataB),
       }
     );
 
@@ -112,16 +112,16 @@ submitButton.addEventListener("click", async (e) => {
     console.log("Success:", result);
 
     if (result.success) {
-      window.location.href = redirectUrl;
+      window.location.href = redirectUrlB;
     }
 
   } catch (error) {
     console.error("Error:", error.message);
     alert("An error occurred. Please try again.");
   } finally {
-    submitButton.disabled = false;
-    submitButton.innerText = "Submit";
-    submitButton.style.cursor = "pointer";
-    submitButton.style.backgroundColor = "black";
+    submitButtonB.disabled = false;
+    submitButtonB.innerText = "Submit";
+    submitButtonB.style.cursor = "pointer";
+    submitButtonB.style.backgroundColor = "black";
   }
 });
