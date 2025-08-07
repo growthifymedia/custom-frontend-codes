@@ -1,0 +1,98 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.b-page {
+  background-color: #f9fafb;
+  padding: 40px 0;
+}
+
+.b-container {
+  max-width: 400px;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.b-heading {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.b-group {
+  margin-bottom: 18px;
+}
+
+.b-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.b-group input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border 0.3s ease;
+}
+
+.b-group input:focus {
+  border-color: #000;
+  outline: none;
+}
+
+.b-phone-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.b-code {
+  padding: 10px 12px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.b-phone-wrap input {
+  border-radius: 0 6px 6px 0;
+  border-left: none;
+}
+
+.b-error {
+  display: none;
+  color: #e53935;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+#b-submit-btn {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#b-submit-btn:hover {
+  background-color: #222;
+}

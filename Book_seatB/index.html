@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Free Lead Form B</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body class="b-page">
+    <div class="b-container">
+      <h2 class="b-heading">Form B</h2>
+
+      <form id="b-lead-form">
+        <!-- Name -->
+        <div class="b-group">
+          <label for="b-name">Name</label>
+          <input id="b-name" name="name" type="text" placeholder="Enter Name" />
+          <p id="b-name-error" class="b-error">Please enter your name.</p>
+        </div>
+
+        <!-- Email -->
+        <div class="b-group">
+          <label for="b-email">Email</label>
+          <input id="b-email" name="email" type="text" placeholder="Enter Email" />
+          <p id="b-email-error" class="b-error">Please enter a valid email address.</p>
+        </div>
+
+        <!-- Phone -->
+        <div class="b-group">
+          <label for="b-phone">Phone</label>
+          <div class="b-phone-wrap">
+            <span class="b-code">IND</span>
+            <input id="b-phone" name="phone" type="text" placeholder="Enter Phone" />
+          </div>
+          <p id="b-phone-error" class="b-error">Please enter valid 10 digit phone number.</p>
+        </div>
+
+        <!-- DOB -->
+        <div class="b-group">
+          <label for="b-dob">Date of Birth</label>
+          <input id="b-dob" name="dob" type="date" />
+        </div>
+
+        <!-- City -->
+        <div class="b-group">
+          <label for="b-city">City</label>
+          <input id="b-city" name="city" type="text" placeholder="Enter City" />
+        </div>
+
+        <!-- Purpose -->
+        <div class="b-group">
+          <label for="b-purpose">Purpose</label>
+          <input id="b-purpose" name="purpose" type="text" placeholder="Enter Purpose" />
+        </div>
+
+        <!-- Favorite Food -->
+        <div class="b-group">
+          <label for="b-fav-food">Favorite Food</label>
+          <input id="b-fav-food" name="favorite_food" type="text" placeholder="Enter Your Favorite Food" />
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="b-submit-btn">Submit</button>
+      </form>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
